@@ -5,6 +5,7 @@
  */
 package pendaftaran.ktp;
 
+import pendaftaran.ktp.config.JpanelLoader;
 import java.awt.Image;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
