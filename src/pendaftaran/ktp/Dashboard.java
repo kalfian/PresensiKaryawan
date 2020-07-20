@@ -43,7 +43,7 @@ public class Dashboard extends javax.swing.JFrame {
         ImageIcon imageIcon = new ImageIcon(new ImageIcon("/home/neet/NetBeansProjects/Pendaftaran KTP/assets/images/list.png").getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));
         btnListing = new javax.swing.JButton();
         ImageIcon imageIcon2 = new ImageIcon(new ImageIcon("/home/neet/NetBeansProjects/Pendaftaran KTP/assets/images/add.png").getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));
-        jButton2 = new javax.swing.JButton();
+        btnTambahData = new javax.swing.JButton();
         containerPanel = new javax.swing.JPanel();
         labelWelcome = new javax.swing.JLabel();
 
@@ -70,13 +70,13 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pendaftaran/ktp/img/add.png"))); // NOI18N
-        jButton2.setText("Tambah Data");
-        jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnTambahData.setBackground(new java.awt.Color(255, 255, 255));
+        btnTambahData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pendaftaran/ktp/img/add.png"))); // NOI18N
+        btnTambahData.setText("Tambah Data");
+        btnTambahData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnTambahData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnTambahDataActionPerformed(evt);
             }
         });
 
@@ -88,7 +88,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(btnListing, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnTambahData, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 516, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -98,7 +98,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(headerPanelLayout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addGroup(headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTambahData, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnListing)))
@@ -151,13 +151,13 @@ public class Dashboard extends javax.swing.JFrame {
         jpload.jPanelLoader(containerPanel, listing);
     }//GEN-LAST:event_btnListingActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnTambahDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahDataActionPerformed
         // TODO add your handling code here:
 //        FormKTP form = new FormKTP();
 //        form.setVisible(true);
         PanelForm form = new PanelForm();
         jpload.jPanelLoader(containerPanel, form);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnTambahDataActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
@@ -215,9 +215,9 @@ public class Dashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListing;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnTambahData;
     private javax.swing.JPanel containerPanel;
     private javax.swing.JPanel headerPanel;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel labelWelcome;
     // End of variables declaration//GEN-END:variables
 }
