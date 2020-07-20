@@ -21,7 +21,7 @@ public class Config {
     private ResultSet rs;
     String dbName = "pendaftaran_ktp";
     String user = "root";
-    String pass = "root";
+    String pass = "anu";
     
     public Connection getConnection (){
         try{
@@ -32,7 +32,7 @@ public class Config {
         }
         try {
             conn= (Connection) 
-            DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
+            DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName+"?useLegacyDatetimeCode=false&serverTimezone=Asia/Jakarta",user,pass);
         } 
         catch (SQLException e) 
         {

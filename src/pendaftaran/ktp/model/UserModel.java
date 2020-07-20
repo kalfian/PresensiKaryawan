@@ -10,13 +10,23 @@ package pendaftaran.ktp.model;
  * @author kalfian
  */
 public class UserModel {
+    private int id;
     private String username;
-
-    public UserModel(String username, String password) {
+    private String name;
+    
+    public UserModel(int id ,String username, String name ) {
+        this.id = id;
         this.username = username;
-        this.password = password;
+        this.name = name;
     }
-    private String password;
+    
+     public int getID() {
+        return id;
+    }
+
+    public void setID(int id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -26,11 +36,11 @@ public class UserModel {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getName() {
+        return name;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setName(String password) {
+        this.name = name;
     }
 }
