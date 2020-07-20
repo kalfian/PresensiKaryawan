@@ -5,6 +5,7 @@
  */
 package pendaftaran.ktp;
 
+import pendaftaran.ktp.config.Config;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
