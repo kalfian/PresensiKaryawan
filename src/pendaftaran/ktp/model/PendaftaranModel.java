@@ -20,15 +20,17 @@ public class PendaftaranModel {
     private String tempatLahir;
     private String tanggalLahir;
     private String statusPerkawinan;
+    private String nomorKK;
     private String pekerjaan;
     private String alamat;
     private String kewarganegaraan;
     
-    public PendaftaranModel(int id, int idKelurahan, int idAgama, String kodePendaftaran, String nama, String tempatLahir, String tanggalLahir, String statusPerkawinan, String pekerjaan, String alamat, String kewarganegaraan) {
+    /*public PendaftaranModel(int id, int idKelurahan, int idAgama, String kodePendaftaran, String nama, String nomorKK,String tempatLahir, String tanggalLahir, String statusPerkawinan, String pekerjaan, String alamat, String kewarganegaraan) {
         this.id = id;
         this.idKelurahan = idKelurahan;
         this.idAgama = idAgama;
         this.kodePendaftaran = kodePendaftaran;
+        this.nomorKK = nomorKK;
         this.nama = nama;
         this.tempatLahir = tempatLahir;
         this.tanggalLahir = tanggalLahir;
@@ -36,7 +38,7 @@ public class PendaftaranModel {
         this.pekerjaan = pekerjaan;
         this.alamat = alamat;
         this.kewarganegaraan = kewarganegaraan;
-    }
+    }*/
 
     public int getId() {
         return id;
@@ -68,6 +70,14 @@ public class PendaftaranModel {
 
     public void setKodePendaftaran(String kodePendaftaran) {
         this.kodePendaftaran = kodePendaftaran;
+    }
+    
+    public String getNomorKK() {
+        return nomorKK;
+    }
+
+    public void setNomorKK(String nomorKK) {
+        this.nomorKK = nomorKK;
     }
 
     public String getNama() {

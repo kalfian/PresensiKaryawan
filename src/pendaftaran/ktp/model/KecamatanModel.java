@@ -5,19 +5,22 @@
  */
 package pendaftaran.ktp.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author kalfian
  */
-public class KecamatanModel {
+public class KecamatanModel<A> {
     private int id;
     private String kecamatan;
 
-    public KecamatanModel(int id, String kecamatan) {
+    /*public KecamatanModel(int id, String kecamatan) {
         this.id = id;
         this.kecamatan = kecamatan;
-    }
-
+    }*/
+    
     public int getId() {
         return id;
     }
@@ -33,4 +36,5 @@ public class KecamatanModel {
     public void setKecamatan(String kecamatan) {
         this.kecamatan = kecamatan;
     }
+
 }

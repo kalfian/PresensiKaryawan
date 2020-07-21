@@ -5,6 +5,9 @@
  */
 package pendaftaran.ktp;
 
+import javax.swing.table.DefaultTableModel;
+import pendaftaran.ktp.config.Config;
+
 /**
  *
  * @author kalfian
@@ -14,8 +17,17 @@ public class PanelListing extends javax.swing.JPanel {
     /**
      * Creates new form PanelListing2
      */
+    Config db = new Config();
+    DefaultTableModel model;
     public PanelListing() {
         initComponents();
+        String [] judul= {"Kode Pendaftaran","Nama Pendaftar","Kelurahan","Kecamatan","Nomor KK"};
+        model = new DefaultTableModel(judul,0);
+        jTable1.setModel(model);
+    }
+    
+    public void getData(){
+        
     }
 
     /**

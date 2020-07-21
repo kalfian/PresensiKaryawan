@@ -5,6 +5,8 @@
  */
 package pendaftaran.ktp.config;
 
+import java.util.HashMap;
+
 /**
  *
  * @author kalfian

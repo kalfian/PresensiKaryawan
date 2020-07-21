@@ -13,10 +13,10 @@ public class AgamaModel {
     private int id;
     private String nama;
 
-    public AgamaModel(int id, String nama) {
+    /*public AgamaModel(int id, String nama) {
         this.id = id;
         this.nama = nama;
-    }
+    }*/
 
     public int getId() {
         return id;
