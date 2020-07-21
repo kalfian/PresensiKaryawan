@@ -138,8 +138,9 @@ public class PanelForm extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         rdWNI = new javax.swing.JRadioButton();
         rdWNA = new javax.swing.JRadioButton();
-        btnSimpan = new javax.swing.JToggleButton();
+        btnCap = new javax.swing.JToggleButton();
         jToggleButton2 = new javax.swing.JToggleButton();
+        btnSimpan = new javax.swing.JToggleButton();
 
         jLabel7.setText("Pekerjaan");
 
@@ -265,6 +266,15 @@ public class PanelForm extends javax.swing.JPanel {
         buttonGroup2.add(rdWNA);
         rdWNA.setText("WNA");
 
+        btnCap.setBackground(new java.awt.Color(102, 204, 255));
+        btnCap.setForeground(new java.awt.Color(0, 0, 0));
+        btnCap.setText("Ambil Foto");
+        btnCap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -283,7 +293,8 @@ public class PanelForm extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(rdWNI)
                         .addGap(18, 18, 18)
-                        .addComponent(rdWNA)))
+                        .addComponent(rdWNA))
+                    .addComponent(btnCap, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(157, 157, 157))
         );
         jPanel3Layout.setVerticalGroup(
@@ -307,8 +318,14 @@ public class PanelForm extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdWNI)
                     .addComponent(rdWNA))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCap, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
+
+        jToggleButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jToggleButton2.setForeground(new java.awt.Color(102, 204, 255));
+        jToggleButton2.setText("Batal");
 
         btnSimpan.setBackground(new java.awt.Color(51, 153, 255));
         btnSimpan.setForeground(new java.awt.Color(255, 255, 255));
@@ -319,10 +336,6 @@ public class PanelForm extends javax.swing.JPanel {
             }
         });
 
-        jToggleButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jToggleButton2.setForeground(new java.awt.Color(102, 204, 255));
-        jToggleButton2.setText("Batal");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -332,13 +345,13 @@ public class PanelForm extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(65, 65, 65))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(33, 33, 33))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,13 +363,32 @@ public class PanelForm extends javax.swing.JPanel {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jToggleButton2)
-                            .addComponent(btnSimpan))))
+                            .addComponent(btnSimpan)
+                            .addComponent(jToggleButton2))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapActionPerformed
+        new Snapshot().setVisible(true);
+    }//GEN-LAST:event_btnCapActionPerformed
+
+    private void selKecamatanItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selKecamatanItemStateChanged
+        // TODO add your handling code here:
+        int kecIdx = selKecamatan.getSelectedIndex();
+        String idKec = new KecamatanDAO().idKecamatan.get(kecIdx);
+        listKelurahan = implementKelurahan.getKelurahan(parseInt(idKec));
+        selKelurahan.setModel(new DefaultComboBoxModel<String>(listKelurahan.toArray(new String[0])));
+    }//GEN-LAST:event_selKecamatanItemStateChanged
+
+    private void txtNomorKKKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomorKKKeyTyped
+        // TODO add your handling code here:
+        keyTyped(evt);
+    }//GEN-LAST:event_txtNomorKKKeyTyped
+
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
+        // TODO add your handling code here:
+        SnapshotModel sm = new SnapshotModel();
         PendaftaranModel pm = new PendaftaranModel();
         pm.setNomorKK(txtNomorKK.getText());
         pm.setNama(txtNama.getText());
@@ -389,25 +421,14 @@ public class PanelForm extends javax.swing.JPanel {
             WN = "WNA";
         }
         pm.setKewarganegaraan(WN);
+        pm.setImage(sm.getImg());
         implementPendaftaran.insert(pm);
         clearAllInput();
     }//GEN-LAST:event_btnSimpanActionPerformed
 
-    private void selKecamatanItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selKecamatanItemStateChanged
-        // TODO add your handling code here:
-        int kecIdx = selKecamatan.getSelectedIndex();
-        String idKec = new KecamatanDAO().idKecamatan.get(kecIdx);
-        listKelurahan = implementKelurahan.getKelurahan(parseInt(idKec));
-        selKelurahan.setModel(new DefaultComboBoxModel<String>(listKelurahan.toArray(new String[0])));
-    }//GEN-LAST:event_selKecamatanItemStateChanged
-
-    private void txtNomorKKKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomorKKKeyTyped
-        // TODO add your handling code here:
-        keyTyped(evt);
-    }//GEN-LAST:event_txtNomorKKKeyTyped
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnCap;
     private javax.swing.JToggleButton btnSimpan;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;

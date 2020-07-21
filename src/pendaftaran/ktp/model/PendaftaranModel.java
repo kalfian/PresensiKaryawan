@@ -24,6 +24,7 @@ public class PendaftaranModel {
     private String pekerjaan;
     private String alamat;
     private String kewarganegaraan;
+    private String image;
     
     /*public PendaftaranModel(int id, int idKelurahan, int idAgama, String kodePendaftaran, String nama, String nomorKK,String tempatLahir, String tanggalLahir, String statusPerkawinan, String pekerjaan, String alamat, String kewarganegaraan) {
         this.id = id;
@@ -134,6 +135,14 @@ public class PendaftaranModel {
 
     public void setKewarganegaraan(String kewarganegaraan) {
         this.kewarganegaraan = kewarganegaraan;
+    }
+    
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
     
 }
