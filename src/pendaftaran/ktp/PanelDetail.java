@@ -24,7 +24,7 @@ public class PanelDetail extends javax.swing.JPanel {
      * Creates new form PanelDetaill
      */
     private ImageIcon image;
-    public PanelDetail() throws IOException {
+    public PanelDetail() throws IOException  {
         initComponents();
         PendaftaranModel pm = new PendaftaranModel();
         txtNomorKK.setText(pm.getNama());

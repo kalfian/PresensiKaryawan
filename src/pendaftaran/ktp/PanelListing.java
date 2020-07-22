@@ -5,9 +5,12 @@
  */
 package pendaftaran.ktp;
 
+import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import pendaftaran.ktp.config.Config;
@@ -310,9 +313,14 @@ public class PanelListing extends javax.swing.JPanel {
             pm.setKodePendaftaran(kode);
             implementPendaftaran.getByKode(parseInt(kode));
             
-            PanelDetail detail = new PanelDetail();
-            Dashboard dashboard = new Dashboard();
-            dashboard.jpload.jPanelLoader(PanelListing.this, detail);
+            PanelDetail detail;
+            try {
+                detail = new PanelDetail();
+                Dashboard dashboard = new Dashboard();
+                dashboard.jpload.jPanelLoader(PanelListing.this, detail);
+            } catch (IOException ex) {
+                Logger.getLogger(PanelListing.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
