@@ -5,6 +5,9 @@
  */
 package pendaftaran.ktp;
 
+import java.awt.Point;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
@@ -12,6 +15,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import pendaftaran.ktp.config.Config;
 import pendaftaran.ktp.config.JpanelLoader;
@@ -74,6 +79,9 @@ public class PanelListing extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        RightClick = new javax.swing.JPopupMenu();
+        detail = new javax.swing.JMenuItem();
+        edit = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -96,6 +104,22 @@ public class PanelListing extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         printBtn = new javax.swing.JToggleButton();
         resetBtn = new javax.swing.JToggleButton();
+
+        detail.setText("Detail");
+        detail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                detailMouseClicked(evt);
+            }
+        });
+        detail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                detailActionPerformed(evt);
+            }
+        });
+        RightClick.add(detail);
+
+        edit.setText("Edit");
+        RightClick.add(edit);
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
@@ -132,6 +156,12 @@ public class PanelListing extends javax.swing.JPanel {
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable1MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
             }
@@ -306,6 +336,30 @@ public class PanelListing extends javax.swing.JPanel {
     }//GEN-LAST:event_selKecamatanItemStateChanged
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void printBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_printBtnActionPerformed
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+       
+    }//GEN-LAST:event_jTable1MouseReleased
+
+    private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
+        if(evt.getButton() == MouseEvent.BUTTON3){
+           if(evt.isPopupTrigger() && jTable1.getSelectedRowCount() != 0){
+               RightClick.show(evt.getComponent(),evt.getX(),evt.getY());
+           }
+       }
+    }//GEN-LAST:event_jTable1MousePressed
+
+    private void detailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detailMouseClicked
+        
+    }//GEN-LAST:event_detailMouseClicked
+
+    private void detailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailActionPerformed
         int row = jTable1.getSelectedRow();
         if (row != -1) {
             String kode = jTable1.getValueAt(row, 0).toString();
@@ -322,14 +376,12 @@ public class PanelListing extends javax.swing.JPanel {
                 Logger.getLogger(PanelListing.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_jTable1MouseClicked
-
-    private void printBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_printBtnActionPerformed
-
-
+    }//GEN-LAST:event_detailActionPerformed
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPopupMenu RightClick;
+    private javax.swing.JMenuItem detail;
+    private javax.swing.JMenuItem edit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
