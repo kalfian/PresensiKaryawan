@@ -5,6 +5,7 @@
  */
 package pendaftaran.ktp;
 
+import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
@@ -15,7 +16,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import pendaftaran.ktp.config.Config;
@@ -346,6 +349,11 @@ public class PanelListing extends javax.swing.JPanel {
         resetBtn.setBackground(new java.awt.Color(0, 204, 204));
         resetBtn.setForeground(new java.awt.Color(255, 255, 255));
         resetBtn.setText("Reset Filter");
+        resetBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -509,7 +517,42 @@ public class PanelListing extends javax.swing.JPanel {
         list = implementPendaftaran.filterPendaftaran(idKec,idKel,kewarganegaraan,status,cari);
         jTable1.setModel(new TabelModelPendaftaran(list));
     }//GEN-LAST:event_jRadioButton6MousePressed
-  
+
+    private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
+        clearAllInput();
+    }//GEN-LAST:event_resetBtnActionPerformed
+    public void clearAllInput(){
+        txtCari.setText("");
+        for(Component control : jPanel2.getComponents())
+        {
+            if(control instanceof JTextField)
+            {
+                JTextField ctrl = (JTextField) control;
+                ctrl.setText("");
+            }
+            else if (control instanceof JComboBox)
+            {
+                JComboBox ctr = (JComboBox) control;
+                ctr.setSelectedIndex(0);
+            }
+        }
+        
+        for(Component control : jPanel3.getComponents())
+        {
+            if(control instanceof JTextField)
+            {
+                JTextField ctrl = (JTextField) control;
+                ctrl.setText("");
+            }
+            else if (control instanceof JComboBox)
+            {
+                JComboBox ctr = (JComboBox) control;
+                ctr.setSelectedIndex(0);
+            }
+        }
+        buttonGroup1.clearSelection();
+        buttonGroup2.clearSelection();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu RightClick;
     private javax.swing.ButtonGroup buttonGroup1;
