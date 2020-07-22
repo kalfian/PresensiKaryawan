@@ -16,6 +16,7 @@ import java.util.Random;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JTextField;
 import pendaftaran.ktp.config.Config;
 import pendaftaran.ktp.model.dao.*;
@@ -370,7 +371,9 @@ public class PanelForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapActionPerformed
-        new Snapshot().setVisible(true);
+        Snapshot sp = new Snapshot();
+        sp.setVisible(true);
+        sp.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }//GEN-LAST:event_btnCapActionPerformed
 
     private void selKecamatanItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selKecamatanItemStateChanged
