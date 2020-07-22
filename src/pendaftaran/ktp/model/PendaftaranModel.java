@@ -14,17 +14,20 @@ import java.sql.SQLException;
 public class PendaftaranModel {
     private int id;
     private int idKelurahan;
+    private static String kelurahan;
+    private static String kecamatan;
     private int idAgama;
-    private String kodePendaftaran;
-    private String nama;
-    private String tempatLahir;
-    private String tanggalLahir;
-    private String statusPerkawinan;
-    private String nomorKK;
-    private String pekerjaan;
-    private String alamat;
-    private String kewarganegaraan;
-    private String image;
+    private static String agama;
+    private static String kodePendaftaran;
+    private static String nama;
+    private static String tempatLahir;
+    private static String tanggalLahir;
+    private static String statusPerkawinan;
+    private static String nomorKK;
+    private static String pekerjaan;
+    private static String alamat;
+    private static String kewarganegaraan;
+    private static String image;
     
     /*public PendaftaranModel(int id, int idKelurahan, int idAgama, String kodePendaftaran, String nama, String nomorKK,String tempatLahir, String tanggalLahir, String statusPerkawinan, String pekerjaan, String alamat, String kewarganegaraan) {
         this.id = id;
@@ -56,6 +59,22 @@ public class PendaftaranModel {
     public void setIdKelurahan(int idKelurahan) {
         this.idKelurahan = idKelurahan;
     }
+    
+    public String getKelurahan() {
+        return kelurahan;
+    }
+
+    public void setKelurahan(String kelurahan) {
+        this.kelurahan = kelurahan;
+    }
+    
+    public String getKecamatan() {
+        return kecamatan;
+    }
+
+    public void setKecamatan(String kecamatan) {
+        this.kecamatan = kecamatan;
+    }
 
     public int getIdAgama() {
         return idAgama;
@@ -63,6 +82,14 @@ public class PendaftaranModel {
 
     public void setIdAgama(int idAgama) {
         this.idAgama = idAgama;
+    }
+    
+    public String getAgama() {
+        return agama;
+    }
+
+    public void setAgama(String agama) {
+        this.agama = agama;
     }
 
     public String getKodePendaftaran() {

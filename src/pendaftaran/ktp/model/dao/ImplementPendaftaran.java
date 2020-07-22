@@ -5,10 +5,13 @@
  */
 package pendaftaran.ktp.model.dao;
 import pendaftaran.ktp.model.*;
+import java.util.List;
 /**
  *
  * @author neet
  */
 public interface ImplementPendaftaran {
      public void insert(PendaftaranModel pm);
+     public List<PendaftaranModel> getAllPendaftaran();
+     public List<PendaftaranModel> getByKode(int kode);
 }

@@ -89,8 +89,8 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(btnListing, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnTambahData, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 516, Short.MAX_VALUE)
+                .addComponent(btnTambahData)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 504, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -217,7 +217,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnListing;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnTambahData;
-    private javax.swing.JPanel containerPanel;
+    public javax.swing.JPanel containerPanel;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JLabel labelWelcome;
     // End of variables declaration//GEN-END:variables

@@ -5,8 +5,22 @@
  */
 package pendaftaran.ktp;
 
+import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import pendaftaran.ktp.config.Config;
+import pendaftaran.ktp.config.JpanelLoader;
+import pendaftaran.ktp.model.PendaftaranModel;
+import pendaftaran.ktp.model.TabelModelPendaftaran;
+import pendaftaran.ktp.model.dao.ImplementAgama;
+import pendaftaran.ktp.model.dao.ImplementKecamatan;
+import pendaftaran.ktp.model.dao.ImplementKelurahan;
+import pendaftaran.ktp.model.dao.ImplementPendaftaran;
+import pendaftaran.ktp.model.dao.KecamatanDAO;
+import pendaftaran.ktp.model.dao.KelurahanDAO;
+import pendaftaran.ktp.model.dao.PendaftaranDAO;
 
 /**
  *
@@ -19,15 +33,33 @@ public class PanelListing extends javax.swing.JPanel {
      */
     Config db = new Config();
     DefaultTableModel model;
+    
+    private List<PendaftaranModel> list;
+    private final ImplementPendaftaran implementPendaftaran;
+    
+    private ArrayList<String> listKec,listKelurahan;
+    private final ImplementKelurahan implementKelurahan;
+    private final ImplementKecamatan implementKecamatan;
+    
     public PanelListing() {
         initComponents();
-        String [] judul= {"Kode Pendaftaran","Nama Pendaftar","Kelurahan","Kecamatan","Nomor KK"};
-        model = new DefaultTableModel(judul,0);
-        jTable1.setModel(model);
+        implementKelurahan = new KelurahanDAO();
+        implementKecamatan = new KecamatanDAO();
+        implementPendaftaran = new PendaftaranDAO();
+        list = implementPendaftaran.getAllPendaftaran();
+        getData();
+        
+        //
+        listKec = implementKecamatan.getKecamatan();
+        listKelurahan = implementKelurahan.getKelurahan(1);
+        
+        selKecamatan.setModel(new DefaultComboBoxModel<String>(listKec.toArray(new String[0])));
+        selKelurahan.setModel(new DefaultComboBoxModel<String>(listKelurahan.toArray(new String[0])));
     }
     
     public void getData(){
-        
+        list = implementPendaftaran.getAllPendaftaran();
+        jTable1.setModel(new TabelModelPendaftaran(list));
     }
 
     /**
@@ -45,8 +77,8 @@ public class PanelListing extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        selKecamatan = new javax.swing.JComboBox<>();
+        selKelurahan = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -96,15 +128,25 @@ public class PanelListing extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
 
-        jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selKecamatan.setBackground(new java.awt.Color(255, 255, 255));
+        selKecamatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selKecamatan.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                selKecamatanItemStateChanged(evt);
+            }
+        });
 
-        jComboBox3.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selKelurahan.setBackground(new java.awt.Color(255, 255, 255));
+        selKelurahan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel2.setText("Kecamatan");
 
@@ -141,8 +183,8 @@ public class PanelListing extends javax.swing.JPanel {
                             .addComponent(jLabel3))
                         .addGap(75, 75, 75)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(selKelurahan, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(selKecamatan, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,11 +210,11 @@ public class PanelListing extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(selKecamatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(selKelurahan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -207,6 +249,11 @@ public class PanelListing extends javax.swing.JPanel {
         printBtn.setBackground(new java.awt.Color(0, 204, 204));
         printBtn.setForeground(new java.awt.Color(255, 255, 255));
         printBtn.setText("Print");
+        printBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printBtnActionPerformed(evt);
+            }
+        });
 
         resetBtn.setBackground(new java.awt.Color(0, 204, 204));
         resetBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -248,10 +295,33 @@ public class PanelListing extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void selKecamatanItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selKecamatanItemStateChanged
+        int kecIdx = selKecamatan.getSelectedIndex();
+        String idKec = new KecamatanDAO().idKecamatan.get(kecIdx);
+        listKelurahan = implementKelurahan.getKelurahan(parseInt(idKec));
+        selKelurahan.setModel(new DefaultComboBoxModel<String>(listKelurahan.toArray(new String[0])));
+    }//GEN-LAST:event_selKecamatanItemStateChanged
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int row = jTable1.getSelectedRow();
+        if (row != -1) {
+            String kode = jTable1.getValueAt(row, 0).toString();
+            PendaftaranModel pm = new PendaftaranModel();
+            pm.setKodePendaftaran(kode);
+            implementPendaftaran.getByKode(parseInt(kode));
+            
+            PanelDetail detail = new PanelDetail();
+            Dashboard dashboard = new Dashboard();
+            dashboard.jpload.jPanelLoader(PanelListing.this, detail);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void printBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_printBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -272,5 +342,7 @@ public class PanelListing extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JToggleButton printBtn;
     private javax.swing.JToggleButton resetBtn;
+    private javax.swing.JComboBox<String> selKecamatan;
+    private javax.swing.JComboBox<String> selKelurahan;
     // End of variables declaration//GEN-END:variables
 }
