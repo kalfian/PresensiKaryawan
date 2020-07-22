@@ -6,11 +6,14 @@
 package pendaftaran.ktp.model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import pendaftaran.ktp.config.Config;
 import pendaftaran.ktp.model.PendaftaranModel;
@@ -117,6 +120,93 @@ public class PendaftaranDAO implements ImplementPendaftaran {
                 pm.setKewarganegaraan(rs.getString("kewarganegaraan"));
                 pm.setImage(rs.getString("image"));
             }
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(PendaftaranDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    @Override
+    public List<PendaftaranModel> filterPendaftaran(String kec, String kel,String kewarganegaraan, String status,String cari) {
+        list = new ArrayList<PendaftaranModel>();
+        Map<String, Object> params = new HashMap<>();
+        
+        String namaQ = "";
+        String filterQ = "";
+        try (Connection conn = db.getConnection()) {
+            
+            if(cari != null){
+                namaQ = "AND pendaftaran.nama LIKE  ? OR pendaftaran.nkk LIKE  ? OR pendaftaran.kode_pendaftaran LIKE  ? ESCAPE '!'";
+            }
+
+            params.put("kecamatan.id",kec);
+            params.put("id_kelurahan",kel);
+            params.put("kewarganegaraan",kewarganegaraan);
+            params.put("status_perkawinan",status);
+            
+//            System.out.println(kewarganegaraan);
+            int p = 1;
+            for (String paramName : params.keySet()) {
+                Object paramValue = params.get(paramName);
+//                System.out.println("param : "+paramName);
+                if (paramValue != null) {
+                    if(p == 1){
+                        filterQ = " WHERE "+paramName+" = ?";
+                    }
+                    else{
+                        filterQ += " AND " + paramName + "= ?";
+                    }
+                    p++;
+                }
+            }
+
+            
+            String q = "SELECT " +
+                        "pendaftaran.kode_pendaftaran," +
+                        "pendaftaran.nkk," +
+                        "pendaftaran.nama," +
+                        "pendaftaran.tempat_lahir," +
+                        "pendaftaran.tanggal_lahir," +
+                        "pendaftaran.status_perkawinan," +
+                        "pendaftaran.pekerjaan," +
+                        "kelurahan.kelurahan," +
+                        "kecamatan.kecamatan " +
+                        "FROM pendaftaran JOIN kelurahan ON id_kelurahan = kelurahan.id JOIN kecamatan ON kelurahan.kecamatan_id = kecamatan.id " +
+                        ""+filterQ+namaQ+"";
+            PreparedStatement ps = conn.prepareStatement(q);
+
+            int paramNumber = 1;
+            for (String paramName : params.keySet()) {
+                Object paramValue = params.get(paramName);
+                if (paramValue != null) {
+                    ps.setString(paramNumber, paramValue.toString());
+                    paramNumber++;
+                }
+            }
+//            System.out.println("query : "+filterQ);
+//            System.out.println("query : "+namaQ);
+            if(cari != null){
+                System.out.println("last : "+paramNumber);
+                ps.setString(paramNumber, "%" + cari + "%");
+                ps.setString(paramNumber+1, "%" + cari + "%");
+                ps.setString(paramNumber+2, "%" + cari + "%");
+            }
+//            System.out.println(ps);
+
+            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) { 
+                PendaftaranModel pm = new PendaftaranModel();
+                pm.setId(rs.getInt(1));
+                pm.setKodePendaftaran(rs.getString("kode_pendaftaran"));
+                pm.setNama(rs.getString("nama"));
+                pm.setKelurahan(rs.getString("kelurahan"));
+                pm.setKecamatan(rs.getString("kecamatan"));
+                pm.setNomorKK(rs.getString("nkk"));
+                list.add(pm);
+            }
+            
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(PendaftaranDAO.class.getName()).log(Level.SEVERE, null, ex);

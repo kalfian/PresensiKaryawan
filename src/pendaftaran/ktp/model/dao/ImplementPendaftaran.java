@@ -14,4 +14,5 @@ public interface ImplementPendaftaran {
      public void insert(PendaftaranModel pm);
      public List<PendaftaranModel> getAllPendaftaran();
      public List<PendaftaranModel> getByKode(int kode);
+     public List<PendaftaranModel> filterPendaftaran(String kec, String kel,String kewarganegaraan, String status,String cari);
 }

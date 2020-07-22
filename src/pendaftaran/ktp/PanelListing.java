@@ -41,13 +41,19 @@ public class PanelListing extends javax.swing.JPanel {
      */
     Config db = new Config();
     DefaultTableModel model;
-    
+    PendaftaranModel pm = new PendaftaranModel();
     private List<PendaftaranModel> list;
     private final ImplementPendaftaran implementPendaftaran;
     
     private ArrayList<String> listKec,listKelurahan;
     private final ImplementKelurahan implementKelurahan;
     private final ImplementKecamatan implementKecamatan;
+    
+    private static String idKec = "1";
+    private static String idKel = null;
+    private static String kewarganegaraan = null;
+    private static String status = null;
+    private static String cari = null;
     
     public PanelListing() {
         initComponents();
@@ -82,6 +88,8 @@ public class PanelListing extends javax.swing.JPanel {
         RightClick = new javax.swing.JPopupMenu();
         detail = new javax.swing.JMenuItem();
         edit = new javax.swing.JMenuItem();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -97,10 +105,10 @@ public class PanelListing extends javax.swing.JPanel {
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton6 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        rdWNI = new javax.swing.JRadioButton();
+        rdWNA = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtCari = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         printBtn = new javax.swing.JToggleButton();
         resetBtn = new javax.swing.JToggleButton();
@@ -180,6 +188,11 @@ public class PanelListing extends javax.swing.JPanel {
 
         selKelurahan.setBackground(new java.awt.Color(255, 255, 255));
         selKelurahan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selKelurahan.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                selKelurahanItemStateChanged(evt);
+            }
+        });
 
         jLabel2.setText("Kecamatan");
 
@@ -189,15 +202,45 @@ public class PanelListing extends javax.swing.JPanel {
 
         jLabel5.setText("Status Perkawinan");
 
+        buttonGroup2.add(jRadioButton1);
         jRadioButton1.setText("Kawin");
+        jRadioButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jRadioButton1MousePressed(evt);
+            }
+        });
 
+        buttonGroup2.add(jRadioButton2);
         jRadioButton2.setText("Belum Kawin");
+        jRadioButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jRadioButton2MousePressed(evt);
+            }
+        });
 
+        buttonGroup2.add(jRadioButton6);
         jRadioButton6.setText("Cerai");
+        jRadioButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jRadioButton6MousePressed(evt);
+            }
+        });
 
-        jRadioButton3.setText("WNI");
+        buttonGroup1.add(rdWNI);
+        rdWNI.setText("WNI");
+        rdWNI.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                rdWNIMousePressed(evt);
+            }
+        });
 
-        jRadioButton4.setText("WNA");
+        buttonGroup1.add(rdWNA);
+        rdWNA.setText("WNA");
+        rdWNA.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                rdWNAMousePressed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel7.setText("Filter");
@@ -224,7 +267,7 @@ public class PanelListing extends javax.swing.JPanel {
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton3)
+                            .addComponent(rdWNI)
                             .addComponent(jRadioButton1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,7 +275,7 @@ public class PanelListing extends javax.swing.JPanel {
                                 .addComponent(jRadioButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jRadioButton6))
-                            .addComponent(jRadioButton4))))
+                            .addComponent(rdWNA))))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -251,8 +294,8 @@ public class PanelListing extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4))
+                    .addComponent(rdWNI)
+                    .addComponent(rdWNA))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -276,6 +319,18 @@ public class PanelListing extends javax.swing.JPanel {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        txtCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCariKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCariKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCariKeyReleased(evt);
+            }
+        });
 
         jLabel6.setText("Cari");
 
@@ -307,7 +362,7 @@ public class PanelListing extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -318,7 +373,7 @@ public class PanelListing extends javax.swing.JPanel {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(printBtn)
                     .addComponent(resetBtn))
@@ -330,9 +385,14 @@ public class PanelListing extends javax.swing.JPanel {
 
     private void selKecamatanItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selKecamatanItemStateChanged
         int kecIdx = selKecamatan.getSelectedIndex();
-        String idKec = new KecamatanDAO().idKecamatan.get(kecIdx);
+        idKec = new KecamatanDAO().idKecamatan.get(kecIdx);
         listKelurahan = implementKelurahan.getKelurahan(parseInt(idKec));
         selKelurahan.setModel(new DefaultComboBoxModel<String>(listKelurahan.toArray(new String[0])));
+        if(!txtCari.getText().equals("")){
+            cari = txtCari.getText();
+        }
+        list = implementPendaftaran.filterPendaftaran(idKec,idKel,kewarganegaraan,status,cari);
+        jTable1.setModel(new TabelModelPendaftaran(list));
     }//GEN-LAST:event_selKecamatanItemStateChanged
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -344,7 +404,11 @@ public class PanelListing extends javax.swing.JPanel {
     }//GEN-LAST:event_printBtnActionPerformed
 
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
-       
+        if(evt.getButton() == MouseEvent.BUTTON3){
+           if(evt.isPopupTrigger() && jTable1.getSelectedRowCount() != 0){
+               RightClick.show(evt.getComponent(),evt.getX(),evt.getY());
+           }
+        }
     }//GEN-LAST:event_jTable1MouseReleased
 
     private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
@@ -352,7 +416,7 @@ public class PanelListing extends javax.swing.JPanel {
            if(evt.isPopupTrigger() && jTable1.getSelectedRowCount() != 0){
                RightClick.show(evt.getComponent(),evt.getX(),evt.getY());
            }
-       }
+        }
     }//GEN-LAST:event_jTable1MousePressed
 
     private void detailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detailMouseClicked
@@ -377,9 +441,79 @@ public class PanelListing extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_detailActionPerformed
+
+    private void txtCariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyTyped
+        
+    }//GEN-LAST:event_txtCariKeyTyped
+
+    private void txtCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyPressed
+        
+    }//GEN-LAST:event_txtCariKeyPressed
+
+    private void txtCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyReleased
+        list = implementPendaftaran.filterPendaftaran(idKec,idKel,kewarganegaraan,status,txtCari.getText());
+        jTable1.setModel(new TabelModelPendaftaran(list));
+    }//GEN-LAST:event_txtCariKeyReleased
+
+    private void selKelurahanItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selKelurahanItemStateChanged
+        int kelIdx = selKelurahan.getSelectedIndex();
+        idKel = new KelurahanDAO().IdKelurahan.get(kelIdx);
+        if(!txtCari.getText().equals("")){
+            cari = txtCari.getText();
+        }
+        list = implementPendaftaran.filterPendaftaran(idKec,idKel,kewarganegaraan,status,cari);
+        jTable1.setModel(new TabelModelPendaftaran(list));
+    }//GEN-LAST:event_selKelurahanItemStateChanged
+
+    private void rdWNIMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdWNIMousePressed
+        kewarganegaraan = "WNI";
+        if(!txtCari.getText().equals("")){
+            cari = txtCari.getText();
+        }
+        list = implementPendaftaran.filterPendaftaran(idKec,idKel,kewarganegaraan,status,cari);
+        jTable1.setModel(new TabelModelPendaftaran(list));
+    }//GEN-LAST:event_rdWNIMousePressed
+
+    private void rdWNAMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdWNAMousePressed
+        kewarganegaraan = "WNA";
+        if(!txtCari.getText().equals("")){
+            cari = txtCari.getText();
+        }
+        list = implementPendaftaran.filterPendaftaran(idKec,idKel,kewarganegaraan,status,cari);
+        jTable1.setModel(new TabelModelPendaftaran(list));
+    }//GEN-LAST:event_rdWNAMousePressed
+
+    private void jRadioButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton1MousePressed
+        status = "kawin";
+        if(!txtCari.getText().equals("")){
+            cari = txtCari.getText();
+        }
+        list = implementPendaftaran.filterPendaftaran(idKec,idKel,kewarganegaraan,status,cari);
+        jTable1.setModel(new TabelModelPendaftaran(list));
+    }//GEN-LAST:event_jRadioButton1MousePressed
+
+    private void jRadioButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton2MousePressed
+        status = "belum kawin";
+        if(!txtCari.getText().equals("")){
+            cari = txtCari.getText();
+        }
+        list = implementPendaftaran.filterPendaftaran(idKec,idKel,kewarganegaraan,status,cari);
+        jTable1.setModel(new TabelModelPendaftaran(list));
+    }//GEN-LAST:event_jRadioButton2MousePressed
+
+    private void jRadioButton6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton6MousePressed
+        status = "cerai";
+        if(!txtCari.getText().equals("")){
+            cari = txtCari.getText();
+        }
+        list = implementPendaftaran.filterPendaftaran(idKec,idKel,kewarganegaraan,status,cari);
+        jTable1.setModel(new TabelModelPendaftaran(list));
+    }//GEN-LAST:event_jRadioButton6MousePressed
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu RightClick;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JMenuItem detail;
     private javax.swing.JMenuItem edit;
     private javax.swing.JLabel jLabel1;
@@ -394,15 +528,15 @@ public class PanelListing extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JToggleButton printBtn;
+    private javax.swing.JRadioButton rdWNA;
+    private javax.swing.JRadioButton rdWNI;
     private javax.swing.JToggleButton resetBtn;
     private javax.swing.JComboBox<String> selKecamatan;
     private javax.swing.JComboBox<String> selKelurahan;
+    private javax.swing.JTextField txtCari;
     // End of variables declaration//GEN-END:variables
 }
