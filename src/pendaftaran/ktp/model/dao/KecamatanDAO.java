@@ -28,6 +28,7 @@ public class KecamatanDAO implements ImplementKecamatan{
     @Override
     public ArrayList<String> getKecamatan() {
          ArrayList<String> kecamatan=new ArrayList<String>();   
+         idKecamatan.clear();
          try (Connection conn = db.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM kecamatan");
             ResultSet rs = ps.executeQuery();

@@ -31,6 +31,7 @@ public class PendaftaranDAO implements ImplementPendaftaran {
     @Override
     public void insert(PendaftaranModel pm) {
         try (Connection conn = db.getConnection()) {
+            System.out.println(pm.getIdKelurahan());
             PreparedStatement ps = conn.prepareStatement("INSERT INTO pendaftaran VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
             ps.setString(1, null);
             ps.setInt(2, pm.getIdKelurahan());

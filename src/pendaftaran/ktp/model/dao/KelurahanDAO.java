@@ -26,6 +26,7 @@ public class KelurahanDAO implements ImplementKelurahan{
     @Override
     public ArrayList<String> getKelurahan(int kecId) {
         ArrayList<String> kecamatan=new ArrayList<String>();   
+         IdKelurahan.clear();
          try (Connection conn = db.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM kelurahan WHERE kecamatan_id = ? ");
             ps.setInt(1, kecId);
@@ -36,6 +37,7 @@ public class KelurahanDAO implements ImplementKelurahan{
                 IdKelurahan.add(rs.getString("id"));
                 a++;
             }
+            System.out.println(IdKelurahan.get(0));
             
             ps.close();
             rs.close();
