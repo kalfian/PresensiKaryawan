@@ -91,7 +91,6 @@ public class PendaftaranDAO implements ImplementPendaftaran {
 
     @Override
     public List<PendaftaranModel> getByKode(int kode) {
-        System.out.println(kode);
         list = new ArrayList<PendaftaranModel>();
         
         try (Connection conn = db.getConnection()) {
@@ -109,14 +108,16 @@ public class PendaftaranDAO implements ImplementPendaftaran {
             
             if(rs.next()){
                 PendaftaranModel pm = new PendaftaranModel();
-                pm.setNama(rs.getString("nama"));
+                pm.setNomorKKDetail(rs.getString("nkk"));
+//                System.out.println("cok : "+pm.getNomorKK());
+                pm.setNamaDetail(rs.getString("nama"));
                 pm.setTempatLahir(rs.getString("tempat_lahir"));
                 pm.setTanggalLahir(rs.getString("tanggal_lahir"));
                 pm.setAgama(rs.getString("agama"));
                 pm.setStatusPerkawinan(rs.getString("status_perkawinan"));
                 pm.setPekerjaan(rs.getString("pekerjaan"));
-                pm.setKecamatan(rs.getString("kecamatan"));
-                pm.setKelurahan(rs.getString("kelurahan"));
+                pm.setKecamatanDetail(rs.getString("kecamatan"));
+                pm.setKelurahanDetail(rs.getString("kelurahan"));
                 pm.setKewarganegaraan(rs.getString("kewarganegaraan"));
                 pm.setImage(rs.getString("image"));
             }

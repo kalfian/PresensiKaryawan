@@ -15,15 +15,20 @@ public class PendaftaranModel {
     private int id;
     private int idKelurahan;
     private String kelurahan;
+    private static String kelurahanDetail;
     private String kecamatan;
+    private static String kecamatanDetail;
     private int idAgama;
     private static String agama;
     private String kodePendaftaran;
+    private static String kodePendaftaranDetail;
     private String nama;
+    private static String namaDetail;
     private static String tempatLahir;
     private static String tanggalLahir;
     private static String statusPerkawinan;
     private String nomorKK;
+    private static String nomorKKDetail;
     private static String pekerjaan;
     private static String alamat;
     private static String kewarganegaraan;
@@ -68,12 +73,28 @@ public class PendaftaranModel {
         this.kelurahan = kelurahan;
     }
     
+    public String getKelurahanDetail() {
+        return kelurahanDetail;
+    }
+
+    public void setKelurahanDetail(String kelurahan) {
+        this.kelurahanDetail = kelurahan;
+    }
+    
     public String getKecamatan() {
         return kecamatan;
     }
 
     public void setKecamatan(String kecamatan) {
         this.kecamatan = kecamatan;
+    }
+    
+    public String getKecamatanDetail() {
+        return kecamatanDetail;
+    }
+
+    public void setKecamatanDetail(String kecamatan) {
+        this.kecamatanDetail = kecamatan;
     }
 
     public int getIdAgama() {
@@ -100,12 +121,28 @@ public class PendaftaranModel {
         this.kodePendaftaran = kodePendaftaran;
     }
     
+    public String getKodePendaftaranDetail() {
+        return kodePendaftaranDetail;
+    }
+
+    public void setKodePendaftaranDetail(String kodePendaftaran) {
+        this.kodePendaftaranDetail = kodePendaftaran;
+    }
+    
     public String getNomorKK() {
         return nomorKK;
     }
 
     public void setNomorKK(String nomorKK) {
         this.nomorKK = nomorKK;
+    }
+    
+    public String getNomorKKDetail() {
+        return this.nomorKKDetail;
+    }
+
+    public void setNomorKKDetail(String nomorKKDetail) {
+        this.nomorKKDetail = nomorKKDetail;
     }
 
     public String getNama() {
@@ -114,6 +151,14 @@ public class PendaftaranModel {
 
     public void setNama(String nama) {
         this.nama = nama;
+    }
+    
+    public String getNamaDetail() {
+        return namaDetail;
+    }
+
+    public void setNamaDetail(String nama) {
+        this.namaDetail = nama;
     }
 
     public String getTempatLahir() {

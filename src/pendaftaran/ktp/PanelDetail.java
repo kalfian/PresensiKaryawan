@@ -27,15 +27,16 @@ public class PanelDetail extends javax.swing.JPanel {
     public PanelDetail() throws IOException  {
         initComponents();
         PendaftaranModel pm = new PendaftaranModel();
-        txtNomorKK.setText(pm.getNama());
-        txtNama.setText(pm.getNama());
+        System.out.println(pm.getNomorKKDetail());
+        txtNomorKK.setText(pm.getNomorKKDetail());
+        txtNama.setText(pm.getNamaDetail());
         txtTmpLahir.setText(pm.getTempatLahir());
         txtTglLahir.setText(pm.getTanggalLahir());
         txtAgama.setText(pm.getAgama());
         txtStatusPerkawinan.setText(pm.getStatusPerkawinan());
         txtPekerjaan.setText(pm.getPekerjaan());
-        txtKecamatan.setText(pm.getKecamatan());
-        txtKelurahan.setText(pm.getKelurahan());
+        txtKecamatan.setText(pm.getKecamatanDetail());
+        txtKelurahan.setText(pm.getKelurahanDetail());
         txtKewarganegaraan.setText(pm.getKewarganegaraan());
         
         Image bi = ImageIO.read(new File(pm.getImage()));
