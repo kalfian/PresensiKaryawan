@@ -119,6 +119,7 @@ public class PendaftaranDAO implements ImplementPendaftaran {
                 pm.setPekerjaan(rs.getString("pekerjaan"));
                 pm.setKecamatanDetail(rs.getString("kecamatan"));
                 pm.setKelurahanDetail(rs.getString("kelurahan"));
+                pm.setAlamat(rs.getString("alamat"));
                 pm.setKewarganegaraan(rs.getString("kewarganegaraan"));
                 pm.setImage(rs.getString("image"));
             }

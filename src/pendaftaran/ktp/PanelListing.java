@@ -130,6 +130,11 @@ public class PanelListing extends javax.swing.JPanel {
         RightClick.add(detail);
 
         edit.setText("Edit");
+        edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editActionPerformed(evt);
+            }
+        });
         RightClick.add(edit);
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
@@ -521,6 +526,25 @@ public class PanelListing extends javax.swing.JPanel {
     private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
         clearAllInput();
     }//GEN-LAST:event_resetBtnActionPerformed
+
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+        int row = jTable1.getSelectedRow();
+        if (row != -1) {
+            try {
+                String kode = jTable1.getValueAt(row, 0).toString();
+                PendaftaranModel pm = new PendaftaranModel();
+                pm.setKodePendaftaran(kode);
+                implementPendaftaran.getByKode(parseInt(kode));
+                
+                PanelEdit edit;
+                edit = new PanelEdit();
+                Dashboard dashboard = new Dashboard();
+                dashboard.jpload.jPanelLoader(PanelListing.this, edit);
+            } catch (IOException ex) {
+                Logger.getLogger(PanelListing.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_editActionPerformed
     public void clearAllInput(){
         txtCari.setText("");
         for(Component control : jPanel2.getComponents())
