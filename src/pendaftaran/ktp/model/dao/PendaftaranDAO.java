@@ -216,4 +216,18 @@ public class PendaftaranDAO implements ImplementPendaftaran {
             return null;
         }
     }
+
+    @Override
+    public void delete(int kode) {
+        try (Connection conn = db.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM pendaftaran WHERE kode_pendaftaran = ? ");
+            ps.setInt(1, kode);
+            System.out.println(kode);
+            if(ps.executeUpdate() == 1){
+                JOptionPane.showMessageDialog(null, "Data Berhasil dihapus!");
+            }
+        }catch (SQLException ex) {
+            Logger.getLogger(PendaftaranDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

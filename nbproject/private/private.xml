@@ -5,8 +5,9 @@
         <group>
             <file>file:/home/neet/NetBeansProjects/Pendaftaran%20KTP/src/pendaftaran/ktp/PanelListing.java</file>
             <file>file:/home/neet/NetBeansProjects/Pendaftaran%20KTP/src/pendaftaran/ktp/PanelForm.java</file>
-            <file>file:/home/neet/NetBeansProjects/Pendaftaran%20KTP/src/pendaftaran/ktp/PanelDetail.java</file>
-            <file>file:/home/neet/NetBeansProjects/Pendaftaran%20KTP/src/pendaftaran/ktp/Dashboard.java</file>
+            <file>file:/home/neet/NetBeansProjects/Pendaftaran%20KTP/src/pendaftaran/ktp/model/dao/KecamatanDAO.java</file>
+            <file>file:/home/neet/NetBeansProjects/Pendaftaran%20KTP/src/pendaftaran/ktp/PanelEdit.java</file>
+            <file>file:/home/neet/NetBeansProjects/Pendaftaran%20KTP/src/pendaftaran/ktp/model/dao/ImplementKecamatan.java</file>
             <file>file:/home/neet/NetBeansProjects/Pendaftaran%20KTP/src/pendaftaran/ktp/Snapshot.java</file>
         </group>
     </open-files>

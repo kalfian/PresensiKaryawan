@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.BackingStoreException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -91,6 +93,7 @@ public class PanelListing extends javax.swing.JPanel {
         RightClick = new javax.swing.JPopupMenu();
         detail = new javax.swing.JMenuItem();
         edit = new javax.swing.JMenuItem();
+        delete = new javax.swing.JMenuItem();
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
@@ -136,6 +139,14 @@ public class PanelListing extends javax.swing.JPanel {
             }
         });
         RightClick.add(edit);
+
+        delete.setText("Delete");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+        RightClick.add(delete);
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
@@ -545,6 +556,23 @@ public class PanelListing extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_editActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        int row = jTable1.getSelectedRow();
+        if (row != -1) {
+            String kode = jTable1.getValueAt(row, 0).toString();
+            PendaftaranModel pm = new PendaftaranModel();
+            int log = JOptionPane.showConfirmDialog(this, "Yakin Ingin menghapus data ini?", "Konfirmasi", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            if (log == 0) {
+                try {
+                    implementPendaftaran.delete(parseInt(kode));
+                } catch(Exception e) {
+                    System.err.print(e.getMessage());
+                }
+                getData();
+            }
+        }
+    }//GEN-LAST:event_deleteActionPerformed
     public void clearAllInput(){
         txtCari.setText("");
         for(Component control : jPanel2.getComponents())
@@ -581,6 +609,7 @@ public class PanelListing extends javax.swing.JPanel {
     private javax.swing.JPopupMenu RightClick;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JMenuItem delete;
     private javax.swing.JMenuItem detail;
     private javax.swing.JMenuItem edit;
     private javax.swing.JLabel jLabel1;
