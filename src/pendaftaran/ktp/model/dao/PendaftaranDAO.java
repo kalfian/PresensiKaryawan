@@ -230,4 +230,40 @@ public class PendaftaranDAO implements ImplementPendaftaran {
             Logger.getLogger(PendaftaranDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @Override
+    public void update(int kode, PendaftaranModel pm) {
+        try (Connection conn = db.getConnection()) {
+            String sqlImage = "";
+            if(pm.getImage() != null){
+                sqlImage = ",image = ?";
+            }
+            String sql = "UPDATE pendaftaran SET id_kelurahan = ?, id_agama = ?, nkk = ?,nama = ?, tempat_lahir = ?, tanggal_lahir = ?,status_perkawinan = ?,pekerjaan = ?, alamat = ?, kewarganegaraan = ?"+sqlImage+" WHERE kode_pendaftaran = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, pm.getIdKelurahan());
+            ps.setInt(2, pm.getIdAgama());
+            ps.setString(3, pm.getNomorKK());
+            ps.setString(4, pm.getNama());
+            ps.setString(5, pm.getTempatLahir());
+            ps.setString(6, pm.getTanggalLahir());
+            ps.setString(7, pm.getStatusPerkawinan());
+            ps.setString(8, pm.getPekerjaan());
+            ps.setString(9, pm.getAlamat());
+            ps.setString(10, pm.getKewarganegaraan());
+            
+            if(pm.getImage() != null){
+                ps.setString(11, pm.getImage());
+                ps.setString(12, pm.getImage());
+            }
+            else{
+                ps.setInt(11, kode);
+            }
+            
+            if(ps.executeUpdate() == 1){
+                JOptionPane.showMessageDialog(null, "Data Berhasil diubah!");
+            }
+        }catch (SQLException ex) {
+            Logger.getLogger(PendaftaranDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

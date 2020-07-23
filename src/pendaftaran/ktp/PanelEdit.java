@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -390,7 +391,41 @@ public class PanelEdit extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCapActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        // TODO add your handling code here:
+        PendaftaranModel pm = new PendaftaranModel();
+        SnapshotModel sm = new SnapshotModel();
+        
+        pm.setNomorKK(txtNomorKK.getText());
+        pm.setNama(txtNama.getText());
+        pm.setTempatLahir(txtTmpLahir.getText());
+        pm.setTanggalLahir(txtTglLahir.getText());
+        
+        String idAgama = new AgamaDAO().idAgama.get(selAgama.getSelectedIndex());
+        pm.setIdAgama(parseInt(idAgama));
+        String statusKawin = "kawin";
+        if(rdBelum.isSelected()){
+            statusKawin = "belum kawin";
+        }
+        if(rdCerai.isSelected()){
+            statusKawin = "cerai";
+        }
+        pm.setStatusPerkawinan(statusKawin);
+        pm.setPekerjaan(txtPekerjaan.getText());
+        pm.setAlamat(txtAlamat.getText());
+        
+        String idKelurahan = new KelurahanDAO().IdKelurahan.get(selKelurahan.getSelectedIndex());
+        
+        Random rand = new Random();
+        int randomNum = rand.nextInt((9999 - 1000) + 1) + 100;
+        String kode = pm.getKodePendaftaranDetail();
+        pm.setIdKelurahan(parseInt(idKelurahan));
+        System.out.println(kode);
+        String WN = "WNI";
+        if(rdWNA.isSelected()){
+            WN = "WNA";
+        }
+        pm.setKewarganegaraan(WN);
+        pm.setImage(sm.getImg());
+        implementPendaftaran.update(parseInt(kode),pm);
     }//GEN-LAST:event_btnSimpanActionPerformed
 
 

@@ -544,9 +544,8 @@ public class PanelListing extends javax.swing.JPanel {
             try {
                 String kode = jTable1.getValueAt(row, 0).toString();
                 PendaftaranModel pm = new PendaftaranModel();
-                pm.setKodePendaftaran(kode);
+                pm.setKodePendaftaranDetail(kode);
                 implementPendaftaran.getByKode(parseInt(kode));
-                
                 PanelEdit edit;
                 edit = new PanelEdit();
                 Dashboard dashboard = new Dashboard();
