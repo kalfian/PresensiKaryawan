@@ -21,7 +21,7 @@ public class Config {
     private ResultSet rs;
     String dbName = "pendaftaran_ktp";
     String user = "root";
-    String pass = "root";
+    String pass = "";
     
     public Connection getConnection (){
         try{

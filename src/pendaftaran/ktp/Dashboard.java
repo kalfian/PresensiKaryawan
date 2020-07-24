@@ -5,11 +5,14 @@
  */
 package pendaftaran.ktp;
 
+import java.awt.Frame;
 import pendaftaran.ktp.config.JpanelLoader;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import pendaftaran.ktp.config.Constant;
 
@@ -25,7 +28,18 @@ public class Dashboard extends javax.swing.JFrame {
      * Creates new form Dashboard
      */
     public Dashboard() {
-        initComponents();
+       this.setUndecorated(true);
+       this.setResizable(false);
+       this.setVisible(true);
+       initComponents();
+       
+       Toolkit tk = Toolkit.getDefaultToolkit();
+       
+       int xSize = (int) tk.getScreenSize().getWidth();
+       int ySize = (int) tk.getScreenSize().getHeight();
+       
+       this.setSize(xSize, ySize);
+        
         labelWelcome.setText(String.format("Welcome %s", pref.get(Constant.PREF_NAME, "-")));
         
     }

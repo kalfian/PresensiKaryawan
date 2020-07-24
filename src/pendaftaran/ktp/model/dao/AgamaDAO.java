@@ -5,7 +5,6 @@
  */
 package pendaftaran.ktp.model.dao;
 
-import com.sun.org.apache.xml.internal.security.encryption.AgreementMethod;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
