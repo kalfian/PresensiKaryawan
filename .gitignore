@@ -1,5 +1,5 @@
 # NetBeans specific #
-nbproject/private/
+nbproject/private
 build/
 nbbuild/
 dist/
@@ -17,3 +17,4 @@ nb-configuration.xml
 
 # Fotone nando
 src/pendaftaran/ktp/img/capture/*
+lib/
