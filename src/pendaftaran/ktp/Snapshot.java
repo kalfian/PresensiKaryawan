@@ -43,28 +43,28 @@ public class Snapshot extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnStart = new javax.swing.JButton();
+        bntAmbil = new javax.swing.JButton();
         panelCam = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        btnTutup = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton2.setBackground(new java.awt.Color(255, 204, 102));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Start");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnStart.setBackground(new java.awt.Color(255, 204, 102));
+        btnStart.setForeground(new java.awt.Color(255, 255, 255));
+        btnStart.setText("Start");
+        btnStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnStartActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(0, 153, 204));
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Ambil");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        bntAmbil.setBackground(new java.awt.Color(0, 153, 204));
+        bntAmbil.setForeground(new java.awt.Color(255, 255, 255));
+        bntAmbil.setText("Ambil");
+        bntAmbil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                bntAmbilActionPerformed(evt);
             }
         });
 
@@ -81,12 +81,12 @@ public class Snapshot extends javax.swing.JFrame {
             .addGap(0, 354, Short.MAX_VALUE)
         );
 
-        jButton4.setBackground(new java.awt.Color(255, 102, 102));
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Tutup");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnTutup.setBackground(new java.awt.Color(255, 102, 102));
+        btnTutup.setForeground(new java.awt.Color(255, 255, 255));
+        btnTutup.setText("Tutup");
+        btnTutup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnTutupActionPerformed(evt);
             }
         });
 
@@ -97,9 +97,9 @@ public class Snapshot extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnStart)
+                    .addComponent(bntAmbil)
+                    .addComponent(btnTutup))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelCam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(15, 15, 15))
@@ -110,11 +110,11 @@ public class Snapshot extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(btnStart)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
+                        .addComponent(bntAmbil)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4)
+                        .addComponent(btnTutup)
                         .addGap(243, 243, 243))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(panelCam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -124,7 +124,7 @@ public class Snapshot extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
         // TODO add your handling code here:
         Thread t = new Thread(){
             @Override
@@ -134,9 +134,9 @@ public class Snapshot extends javax.swing.JFrame {
         };
         t.setDaemon(true);
         t.start();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnStartActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void bntAmbilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntAmbilActionPerformed
         // TODO add your handling code here:
         try {
             String fileName = String.format("capture-%d.jpg", System.currentTimeMillis());
@@ -151,13 +151,13 @@ public class Snapshot extends javax.swing.JFrame {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error :\n"+e.getMessage(),"CamCap",0);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_bntAmbilActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnTutupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTutupActionPerformed
         // TODO add your handling code here:
         wCamPanel.stop();
         this.dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnTutupActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,9 +195,9 @@ public class Snapshot extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton bntAmbil;
+    private javax.swing.JButton btnStart;
+    private javax.swing.JButton btnTutup;
     private javax.swing.JPanel panelCam;
     // End of variables declaration//GEN-END:variables
 }
