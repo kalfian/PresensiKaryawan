@@ -28,12 +28,13 @@ public class Dashboard extends javax.swing.JFrame {
      * Creates new form Dashboard
      */
     public Dashboard() {
+       setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
        this.setUndecorated(true);
        this.setResizable(false);
 //       this.setVisible(true);
        initComponents();
        
-       setExtendedState(JFrame.MAXIMIZED_BOTH);
+       
         
         labelWelcome.setText(String.format("Welcome %s", pref.get(Constant.PREF_NAME, "-")));
         
