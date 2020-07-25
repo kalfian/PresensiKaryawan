@@ -33,12 +33,7 @@ public class Dashboard extends javax.swing.JFrame {
 //       this.setVisible(true);
        initComponents();
        
-       Toolkit tk = Toolkit.getDefaultToolkit();
-       
-       int xSize = (int) tk.getScreenSize().getWidth();
-       int ySize = (int) tk.getScreenSize().getHeight();
-       
-       this.setSize(xSize, ySize);
+       setExtendedState(JFrame.MAXIMIZED_BOTH);
         
         labelWelcome.setText(String.format("Welcome %s", pref.get(Constant.PREF_NAME, "-")));
         
