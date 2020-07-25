@@ -33,6 +33,10 @@ public class PendaftaranModel {
     private static String alamat;
     private static String kewarganegaraan;
     private static String image;
+    private static String golDarah;
+    private static String jk;
+    private static String rt;
+    private static String rw;
     
     /*public PendaftaranModel(int id, int idKelurahan, int idAgama, String kodePendaftaran, String nama, String nomorKK,String tempatLahir, String tanggalLahir, String statusPerkawinan, String pekerjaan, String alamat, String kewarganegaraan) {
         this.id = id;
@@ -215,6 +219,38 @@ public class PendaftaranModel {
 
     public void setImage(String image) {
         this.image = image;
+    }
+    
+    public String getGolDarah() {
+        return golDarah;
+    }
+
+    public void setGolDarah(String golDarah) {
+        this.golDarah = golDarah;
+    }
+    
+    public String getJk() {
+        return jk;
+    }
+
+    public void setJk(String jk) {
+        this.jk = jk;
+    }
+    
+    public String getRT() {
+        return rt;
+    }
+
+    public void setRT(String rt) {
+        this.rt = rt;
+    }
+    
+    public String getRW() {
+        return rw;
+    }
+
+    public void setRW(String rw) {
+        this.rw = rw;
     }
     
 }

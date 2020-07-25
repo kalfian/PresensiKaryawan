@@ -139,7 +139,7 @@ public class Snapshot extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         try {
-            String fileName = "./src/pendaftaran/ktp/img/capture/"+String.format("capture-%d.jpg", System.currentTimeMillis());
+            String fileName = String.format("capture-%d.jpg", System.currentTimeMillis());
             File file = new File(fileName);
             ImageIO.write(wCam.getImage(), "JPG", file);
             

@@ -32,7 +32,7 @@ public class PendaftaranDAO implements ImplementPendaftaran {
     public void insert(PendaftaranModel pm) {
         try (Connection conn = db.getConnection()) {
             System.out.println(pm.getIdKelurahan());
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO pendaftaran VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO pendaftaran VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             ps.setString(1, null);
             ps.setInt(2, pm.getIdKelurahan());
             ps.setInt(3, pm.getIdAgama());
@@ -46,6 +46,10 @@ public class PendaftaranDAO implements ImplementPendaftaran {
             ps.setString(11, pm.getAlamat());
             ps.setString(12, pm.getKewarganegaraan());
             ps.setString(13, pm.getImage());
+            ps.setString(14, pm.getGolDarah());
+            ps.setString(15, pm.getJk());
+            ps.setString(16, pm.getRT());
+            ps.setString(17, pm.getRW());
             
             if(ps.executeUpdate() == 1){
                 JOptionPane.showMessageDialog(null, "Data Berhasil ditambahkan!");
@@ -122,6 +126,10 @@ public class PendaftaranDAO implements ImplementPendaftaran {
                 pm.setAlamat(rs.getString("alamat"));
                 pm.setKewarganegaraan(rs.getString("kewarganegaraan"));
                 pm.setImage(rs.getString("image"));
+                pm.setGolDarah(rs.getString("golongan_darah"));
+                pm.setJk(rs.getString("jk"));
+                pm.setRT(rs.getString("rt"));
+                pm.setRW(rs.getString("rw"));
             }
             return list;
         } catch (SQLException ex) {
@@ -238,7 +246,7 @@ public class PendaftaranDAO implements ImplementPendaftaran {
             if(pm.getImage() != null){
                 sqlImage = ",image = ?";
             }
-            String sql = "UPDATE pendaftaran SET id_kelurahan = ?, id_agama = ?, nkk = ?,nama = ?, tempat_lahir = ?, tanggal_lahir = ?,status_perkawinan = ?,pekerjaan = ?, alamat = ?, kewarganegaraan = ?"+sqlImage+" WHERE kode_pendaftaran = ?";
+            String sql = "UPDATE pendaftaran SET id_kelurahan = ?, id_agama = ?, nkk = ?,nama = ?, tempat_lahir = ?, tanggal_lahir = ?,status_perkawinan = ?,pekerjaan = ?, alamat = ?, kewarganegaraan = ?, golongan_darah= ?, jk = ?, rt = ?, rw = ?"+sqlImage+" WHERE kode_pendaftaran = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, pm.getIdKelurahan());
             ps.setInt(2, pm.getIdAgama());
@@ -250,13 +258,20 @@ public class PendaftaranDAO implements ImplementPendaftaran {
             ps.setString(8, pm.getPekerjaan());
             ps.setString(9, pm.getAlamat());
             ps.setString(10, pm.getKewarganegaraan());
+            ps.setString(11, pm.getGolDarah());
+            ps.setString(12, pm.getJk());
+            ps.setString(13, pm.getRT());
+            ps.setString(14, pm.getRW());
             
+            System.out.println("yy : "+pm.getImage());
             if(pm.getImage() != null){
-                ps.setString(11, pm.getImage());
-                ps.setString(12, pm.getImage());
+                System.out.println("yy : " + ps);
+                System.out.println("yyx : " + pm.getImage());
+                ps.setString(15, pm.getImage());
+                ps.setInt(16, kode);
             }
             else{
-                ps.setInt(11, kode);
+                ps.setInt(15, kode);
             }
             
             if(ps.executeUpdate() == 1){

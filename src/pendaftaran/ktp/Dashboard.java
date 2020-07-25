@@ -30,7 +30,7 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard() {
        this.setUndecorated(true);
        this.setResizable(false);
-       this.setVisible(true);
+//       this.setVisible(true);
        initComponents();
        
        Toolkit tk = Toolkit.getDefaultToolkit();
