@@ -140,7 +140,7 @@ public class Snapshot extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             String fileName = String.format("capture-%d.jpg", System.currentTimeMillis());
-            File file = new File(fileName);
+            File file = new File("./src/pendaftaran/ktp/img/capture/"+fileName);
             ImageIO.write(wCam.getImage(), "JPG", file);
             
             SnapshotModel sm = new SnapshotModel();
