@@ -35,7 +35,6 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="selAgama" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtTglLahir" alignment="1" max="32767" attributes="0"/>
                       <Component id="txtNama" alignment="0" max="32767" attributes="0"/>
                       <Component id="txtTmpLahir" alignment="1" max="32767" attributes="0"/>
                       <Component id="txtNomorKK" alignment="1" max="32767" attributes="0"/>
@@ -71,8 +70,9 @@
                                   <Component id="rdAB" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="422" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="450" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="txtTglLahir" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -95,8 +95,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" pref="27" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="txtTglLahir" min="-2" pref="28" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <Component id="txtTglLahir" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="jLabel6" min="-2" pref="27" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                   <Component id="selAgama" min="-2" max="-2" attributes="0"/>
@@ -124,7 +124,7 @@
                       <Component id="rdB" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="rdAB" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="132" max="32767" attributes="0"/>
+                  <EmptySpace pref="138" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -178,8 +178,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Agama"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtTglLahir">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
@@ -267,6 +265,8 @@
             </Property>
             <Property name="text" type="java.lang.String" value="AB"/>
           </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="txtTglLahir">
         </Component>
       </SubComponents>
     </Container>

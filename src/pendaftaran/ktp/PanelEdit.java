@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
@@ -57,7 +58,15 @@ public class PanelEdit extends javax.swing.JPanel {
         txtNomorKK.setText(pm.getNomorKKDetail());
         txtNama.setText(pm.getNamaDetail());
         txtTmpLahir.setText(pm.getTempatLahir());
-        txtTglLahir.setText(pm.getTanggalLahir());
+        
+        try {
+             java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(pm.getTanggalLahir());
+              txtTglLahir.setDate(date2);
+        } catch(Exception e) {
+            
+        }
+       
+       
         txtPekerjaan.setText(pm.getPekerjaan());
         txtAlamat.setText(pm.getAlamat());
         
@@ -146,7 +155,6 @@ public class PanelEdit extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         selAgama = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
-        txtTglLahir = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtTmpLahir = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -162,6 +170,7 @@ public class PanelEdit extends javax.swing.JPanel {
         rdA = new javax.swing.JRadioButton();
         rdB = new javax.swing.JRadioButton();
         rdAB = new javax.swing.JRadioButton();
+        txtTglLahir = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         selKecamatan = new javax.swing.JComboBox<String>();
         jLabel9 = new javax.swing.JLabel();
@@ -242,7 +251,6 @@ public class PanelEdit extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(selAgama, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtTglLahir, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtNama)
                     .addComponent(txtTmpLahir, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtNomorKK, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -274,7 +282,8 @@ public class PanelEdit extends javax.swing.JPanel {
                                 .addComponent(rdB)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(rdAB)))
-                        .addGap(0, 202, Short.MAX_VALUE)))
+                        .addGap(0, 202, Short.MAX_VALUE))
+                    .addComponent(txtTglLahir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -294,8 +303,8 @@ public class PanelEdit extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtTglLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addComponent(txtTglLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(selAgama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -529,7 +538,9 @@ public class PanelEdit extends javax.swing.JPanel {
         pm.setNomorKK(txtNomorKK.getText());
         pm.setNama(txtNama.getText());
         pm.setTempatLahir(txtTmpLahir.getText());
-        pm.setTanggalLahir(txtTglLahir.getText());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(txtTglLahir.getDate());
+        pm.setTanggalLahir(date);
         
         String idAgama = new AgamaDAO().idAgama.get(selAgama.getSelectedIndex());
         pm.setIdAgama(parseInt(idAgama));
@@ -608,7 +619,7 @@ public class PanelEdit extends javax.swing.JPanel {
     private javax.swing.JTextField txtPekerjaan;
     private javax.swing.JTextField txtRT;
     private javax.swing.JTextField txtRW;
-    private javax.swing.JTextField txtTglLahir;
+    private com.toedter.calendar.JDateChooser txtTglLahir;
     private javax.swing.JTextField txtTmpLahir;
     // End of variables declaration//GEN-END:variables
 }
