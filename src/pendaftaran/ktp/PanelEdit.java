@@ -116,9 +116,14 @@ public class PanelEdit extends javax.swing.JPanel {
         listKelurahan = implementKelurahan.getKelurahan(parseInt(idKec));
         selKelurahan.setModel(new DefaultComboBoxModel<String>(listKelurahan.toArray(new String[0])));
         selKelurahan.setSelectedItem(pm.getKelurahanDetail());
-        Image bi = ImageIO.read(new File("./src/pendaftaran/ktp/img/capture/"+pm.getImage()));
-        image = new ImageIcon(bi.getScaledInstance(100, 100, 100));
-        labelImage.setIcon(image);
+        try {
+            Image bi = ImageIO.read(new File("./src/pendaftaran/ktp/img/capture/"+pm.getImage()));
+            image = new ImageIcon(bi.getScaledInstance(100, 100, 100));
+            labelImage.setIcon(image);
+        } catch(IOException e ) {
+            System.err.println(e);
+        }
+        
     }
     
 
