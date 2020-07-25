@@ -46,9 +46,15 @@ public class PanelDetail extends javax.swing.JPanel {
         txtKelurahan.setText(pm.getKelurahanDetail());
         txtKewarganegaraan.setText(pm.getKewarganegaraan());
         
-        Image bi = ImageIO.read(new File("./src/pendaftaran/ktp/img/capture/"+pm.getImage()));
-        image = new ImageIcon(bi.getScaledInstance(450, 350, 450));
-        jLabel1.setIcon(image);
+        try {
+            System.out.println(pm.getImage());
+           Image bi = ImageIO.read(new File("./src/pendaftaran/ktp/img/capture/"+pm.getImage()));
+            image = new ImageIcon(bi.getScaledInstance(450, 350, 450));
+            jLabel1.setIcon(image); 
+        } catch(IOException e ) {
+            System.err.println(e);
+        }
+        
     }
 
     /**
