@@ -118,7 +118,7 @@ public class PanelForm extends javax.swing.JPanel {
         rdBelum = new javax.swing.JRadioButton();
         rdCerai = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
-        selAgama = new javax.swing.JComboBox<>();
+        selAgama = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
         txtTglLahir = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -137,13 +137,13 @@ public class PanelForm extends javax.swing.JPanel {
         rdB = new javax.swing.JRadioButton();
         rdAB = new javax.swing.JRadioButton();
         jPanel3 = new javax.swing.JPanel();
-        selKecamatan = new javax.swing.JComboBox<>();
+        selKecamatan = new javax.swing.JComboBox<String>();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAlamat = new javax.swing.JTextPane();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        selKelurahan = new javax.swing.JComboBox<>();
+        selKelurahan = new javax.swing.JComboBox<String>();
         jLabel11 = new javax.swing.JLabel();
         rdWNI = new javax.swing.JRadioButton();
         rdWNA = new javax.swing.JRadioButton();
@@ -157,7 +157,7 @@ public class PanelForm extends javax.swing.JPanel {
         txtRW = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
 
-        setLayout(new java.awt.GridLayout(1, 0));
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
         buttonGroup1.add(rdKawin);
         rdKawin.setText("Kawin");
@@ -170,7 +170,7 @@ public class PanelForm extends javax.swing.JPanel {
 
         jLabel5.setText("Status Perkawinan");
 
-        selAgama.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selAgama.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel6.setText("Agama");
 
@@ -250,7 +250,7 @@ public class PanelForm extends javax.swing.JPanel {
                                 .addComponent(rdB)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(rdAB)))
-                        .addGap(0, 389, Short.MAX_VALUE)))
+                        .addGap(0, 422, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -301,7 +301,7 @@ public class PanelForm extends javax.swing.JPanel {
 
         add(jPanel2);
 
-        selKecamatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selKecamatan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         selKecamatan.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 selKecamatanItemStateChanged(evt);
@@ -316,7 +316,7 @@ public class PanelForm extends javax.swing.JPanel {
 
         jLabel10.setText("Kelurahan");
 
-        selKelurahan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selKelurahan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel11.setText("Kewarganegaraan");
 
