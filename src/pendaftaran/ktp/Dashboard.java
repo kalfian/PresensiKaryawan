@@ -28,9 +28,9 @@ public class Dashboard extends javax.swing.JFrame {
      * Creates new form Dashboard
      */
     public Dashboard() {
-       setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
-       this.setUndecorated(true);
-       this.setResizable(false);
+//       setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+//       this.setUndecorated(true);
+//       this.setResizable(false);
 //       this.setVisible(true);
        initComponents();
        

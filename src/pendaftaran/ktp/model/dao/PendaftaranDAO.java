@@ -31,7 +31,6 @@ public class PendaftaranDAO implements ImplementPendaftaran {
     @Override
     public void insert(PendaftaranModel pm) {
         try (Connection conn = db.getConnection()) {
-            System.out.println(pm.getIdKelurahan());
             PreparedStatement ps = conn.prepareStatement("INSERT INTO pendaftaran VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             ps.setString(1, null);
             ps.setInt(2, pm.getIdKelurahan());
@@ -114,7 +113,6 @@ public class PendaftaranDAO implements ImplementPendaftaran {
             if(rs.next()){
                 PendaftaranModel pm = new PendaftaranModel();
                 pm.setNomorKKDetail(rs.getString("nkk"));
-//                System.out.println("cok : "+pm.getNomorKK());
                 pm.setNamaDetail(rs.getString("nama"));
                 pm.setTempatLahir(rs.getString("tempat_lahir"));
                 pm.setTanggalLahir(rs.getString("tanggal_lahir"));
@@ -142,12 +140,11 @@ public class PendaftaranDAO implements ImplementPendaftaran {
     public List<PendaftaranModel> filterPendaftaran(String kec, String kel,String kewarganegaraan, String status,String cari) {
         list = new ArrayList<PendaftaranModel>();
         Map<String, Object> params = new HashMap<>();
-        
         String namaQ = "";
         String filterQ = "";
         try (Connection conn = db.getConnection()) {
             
-            if(cari != null){
+            if(!cari.equals("")){
                 namaQ = "AND pendaftaran.nama LIKE  ? OR pendaftaran.nkk LIKE  ? OR pendaftaran.kode_pendaftaran LIKE  ? ESCAPE '!'";
             }
 
@@ -156,11 +153,10 @@ public class PendaftaranDAO implements ImplementPendaftaran {
             params.put("kewarganegaraan",kewarganegaraan);
             params.put("status_perkawinan",status);
             
-//            System.out.println(kewarganegaraan);
+
             int p = 1;
             for (String paramName : params.keySet()) {
                 Object paramValue = params.get(paramName);
-//                System.out.println("param : "+paramName);
                 if (paramValue != null) {
                     if(p == 1){
                         filterQ = " WHERE "+paramName+" = ?";
@@ -195,16 +191,13 @@ public class PendaftaranDAO implements ImplementPendaftaran {
                     paramNumber++;
                 }
             }
-//            System.out.println("query : "+filterQ);
-//            System.out.println("query : "+namaQ);
-            if(cari != null){
-                System.out.println("last : "+paramNumber);
+
+            if(!cari.equals("")){
+                System.out.println("su terisi");
                 ps.setString(paramNumber, "%" + cari + "%");
                 ps.setString(paramNumber+1, "%" + cari + "%");
                 ps.setString(paramNumber+2, "%" + cari + "%");
             }
-//            System.out.println(ps);
-
             
             ResultSet rs = ps.executeQuery();
             while (rs.next()) { 
@@ -263,10 +256,7 @@ public class PendaftaranDAO implements ImplementPendaftaran {
             ps.setString(13, pm.getRT());
             ps.setString(14, pm.getRW());
             
-            System.out.println("yy : "+pm.getImage());
             if(pm.getImage() != null){
-                System.out.println("yy : " + ps);
-                System.out.println("yyx : " + pm.getImage());
                 ps.setString(15, pm.getImage());
                 ps.setInt(16, kode);
             }

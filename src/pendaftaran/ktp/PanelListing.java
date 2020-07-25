@@ -102,8 +102,8 @@ public class PanelListing extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        selKecamatan = new javax.swing.JComboBox<String>();
-        selKelurahan = new javax.swing.JComboBox<String>();
+        selKecamatan = new javax.swing.JComboBox<>();
+        selKelurahan = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -198,14 +198,14 @@ public class PanelListing extends javax.swing.JPanel {
 
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
 
-        selKecamatan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selKecamatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         selKecamatan.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 selKecamatanItemStateChanged(evt);
             }
         });
 
-        selKelurahan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selKelurahan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         selKelurahan.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 selKelurahanItemStateChanged(evt);
@@ -373,6 +373,11 @@ public class PanelListing extends javax.swing.JPanel {
         cariBtn.setBackground(new java.awt.Color(0, 204, 204));
         cariBtn.setForeground(new java.awt.Color(255, 255, 255));
         cariBtn.setText("Cari");
+        cariBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cariBtnMouseClicked(evt);
+            }
+        });
         cariBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cariBtnActionPerformed(evt);
@@ -584,10 +589,12 @@ public class PanelListing extends javax.swing.JPanel {
     }//GEN-LAST:event_deleteActionPerformed
 
     private void cariBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariBtnActionPerformed
-        // TODO add your handling code here:
-        list = implementPendaftaran.filterPendaftaran(idKec,idKel,kewarganegaraan,status,cari);
+        list = implementPendaftaran.filterPendaftaran(idKec,idKel,kewarganegaraan,status,txtCari.getText());
         jTable1.setModel(new TabelModelPendaftaran(list));
     }//GEN-LAST:event_cariBtnActionPerformed
+
+    private void cariBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cariBtnMouseClicked
+    }//GEN-LAST:event_cariBtnMouseClicked
     public void clearAllInput(){
         txtCari.setText("");
         for(Component control : jPanel2.getComponents())
