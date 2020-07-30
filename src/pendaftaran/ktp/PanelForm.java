@@ -459,7 +459,7 @@ public class PanelForm extends javax.swing.JPanel {
         pm.setNama(txtNama.getText());
         pm.setTempatLahir(txtTmpLahir.getText());
         
-         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(txtTglLahir.getDate());
         pm.setTanggalLahir(date);
         
