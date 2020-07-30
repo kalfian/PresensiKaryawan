@@ -6,6 +6,7 @@
 	<parameter name="id_user" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="image_link" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT p.*, a.agama, k.kelurahan, kec.kecamatan FROM pendaftaran p
 JOIN agama a ON p.id_agama = a.id
@@ -150,6 +151,10 @@ WHERE p.id = $P{id_user}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{golongan_darah}]]></textFieldExpression>
 			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement x="347" y="90" width="110" height="131" uuid="79a4c476-f689-4528-959e-091cff145476"/>
+				<imageExpression><![CDATA["C:\\Users\\John Doe\\Documents\\projects\\ktp\\src\\pendaftaran\\ktp\\img\\capture\\capture-1595344930975.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</detail>
 	<columnFooter>
