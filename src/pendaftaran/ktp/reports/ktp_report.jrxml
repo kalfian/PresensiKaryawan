@@ -91,7 +91,7 @@ WHERE p.id = $P{id_user}]]>
 		<band height="319" splitType="Stretch">
 			<image>
 				<reportElement x="2" y="0" width="500" height="317" uuid="622c45ee-4e22-4883-8caf-314460bc7b27"/>
-				<imageExpression><![CDATA["C:\\Users\\John Doe\\Documents\\projects\\ktp\\src\\pendaftaran\\ktp\\img\\ktp.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["../img/ktp.jpg"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement x="142" y="167" width="173" height="14" uuid="e401ea41-7d15-4a24-b185-46d91b23011f"/>
@@ -151,10 +151,6 @@ WHERE p.id = $P{id_user}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{golongan_darah}]]></textFieldExpression>
 			</textField>
-			<image scaleImage="FillFrame">
-				<reportElement x="347" y="90" width="110" height="131" uuid="79a4c476-f689-4528-959e-091cff145476"/>
-				<imageExpression><![CDATA["C:\\Users\\John Doe\\Documents\\projects\\ktp\\src\\pendaftaran\\ktp\\img\\capture\\capture-1595344930975.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</detail>
 	<columnFooter>
