@@ -20,6 +20,7 @@ import pendaftaran.ktp.config.Config;
 import pendaftaran.ktp.model.PendaftaranModel;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -285,7 +286,7 @@ public class PendaftaranDAO implements ImplementPendaftaran {
     }
 
     @Override
-    public void print(int kode) {
+    public void printByKode(int kode) {
          try (Connection conn = db.getConnection()) {
             JasperDesign jd=JRXmlLoader.load("./src/pendaftaran/ktp/reports/ktp_report.jrxml");
             HashMap param = new HashMap();
@@ -301,5 +302,20 @@ public class PendaftaranDAO implements ImplementPendaftaran {
        }catch(Exception e){
              System.out.println(e.getMessage());
        }
+    }
+
+    @Override
+    public void printAll() {
+        try (Connection conn = db.getConnection()) {
+//            String report = "./src/modul8/Tugas/TugasReport.jrxml";
+            JasperReport JASP_REP = JasperCompileManager.compileReport("./src/pendaftaran/ktp/reports/all_ktp.jrxml");
+            JasperPrint JASP_PRINT = JasperFillManager.fillReport(JASP_REP, null,conn);
+            JasperViewer.viewReport(JASP_PRINT);
+            
+        }   catch (SQLException ex) {
+            Logger.getLogger(PendaftaranDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JRException ex) {
+            Logger.getLogger(PendaftaranDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

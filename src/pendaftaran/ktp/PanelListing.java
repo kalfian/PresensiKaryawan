@@ -443,10 +443,11 @@ public class PanelListing extends javax.swing.JPanel {
         int row = jTable1.getSelectedRow();
         if (row != -1) {
             String kode = jTable1.getValueAt(row, 0).toString();
-            implementPendaftaran.print(parseInt(kode));
+            implementPendaftaran.printByKode(parseInt(kode));
         }
         else{
             //print all list
+            implementPendaftaran.printAll();
         }
     }//GEN-LAST:event_printBtnActionPerformed
 
