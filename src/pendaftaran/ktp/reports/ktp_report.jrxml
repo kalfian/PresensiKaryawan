@@ -2,8 +2,8 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="550" pageHeight="612" orientation="Landscape" columnWidth="510" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9649250b-8d40-46bf-931e-d9f132dedae7">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<parameter name="id_user" class="java.lang.Integer">
+	<property name="ireport.y" value="56"/>
+	<parameter name="kode_pendaftaran" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="image_link" class="java.lang.String"/>
@@ -13,7 +13,7 @@ JOIN agama a ON p.id_agama = a.id
 JOIN kelurahan k ON p.id_kelurahan = k.id
 JOIN kecamatan kec ON k.kecamatan_id = kec.id
 
-WHERE p.id = $P{id_user}]]>
+WHERE p.kode_pendaftaran = $P{kode_pendaftaran}]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -91,7 +91,7 @@ WHERE p.id = $P{id_user}]]>
 		<band height="319" splitType="Stretch">
 			<image>
 				<reportElement x="2" y="0" width="500" height="317" uuid="622c45ee-4e22-4883-8caf-314460bc7b27"/>
-				<imageExpression><![CDATA["../img/ktp.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["./src/pendaftaran/ktp/img/ktp.jpg"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement x="142" y="167" width="173" height="14" uuid="e401ea41-7d15-4a24-b185-46d91b23011f"/>
@@ -151,6 +151,10 @@ WHERE p.id = $P{id_user}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{golongan_darah}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="348" y="46" width="100" height="80" uuid="79c45230-f88d-40ce-94b5-62407b515d74"/>
+				<imageExpression><![CDATA[$P{image_link}]]></imageExpression>
+			</image>
 		</band>
 	</detail>
 	<columnFooter>

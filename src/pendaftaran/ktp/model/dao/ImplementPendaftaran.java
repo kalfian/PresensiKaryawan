@@ -17,4 +17,5 @@ public interface ImplementPendaftaran {
      public List<PendaftaranModel> filterPendaftaran(String kec, String kel,String kewarganegaraan, String status,String cari);
      public void update(int kode,PendaftaranModel pm);
      public void delete(int kode);
+     public void print(int kode);
 }

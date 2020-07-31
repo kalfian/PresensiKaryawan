@@ -5,6 +5,7 @@
  */
 package pendaftaran.ktp.model.dao;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -19,6 +20,14 @@ import pendaftaran.ktp.config.Config;
 import pendaftaran.ktp.model.PendaftaranModel;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -26,6 +35,7 @@ import java.util.logging.Level;
  */
 public class PendaftaranDAO implements ImplementPendaftaran {
     Config db = new Config();
+    private static String imgPrint = "";
     private List<PendaftaranModel> list;
     
     @Override
@@ -124,11 +134,13 @@ public class PendaftaranDAO implements ImplementPendaftaran {
                 pm.setAlamat(rs.getString("alamat"));
                 pm.setKewarganegaraan(rs.getString("kewarganegaraan"));
                 pm.setImage(rs.getString("image"));
+                imgPrint = rs.getString("image");
                 pm.setGolDarah(rs.getString("golongan_darah"));
                 pm.setJk(rs.getString("jk"));
                 pm.setRT(rs.getString("rt"));
                 pm.setRW(rs.getString("rw"));
             }
+            
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(PendaftaranDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -270,5 +282,24 @@ public class PendaftaranDAO implements ImplementPendaftaran {
         }catch (SQLException ex) {
             Logger.getLogger(PendaftaranDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public void print(int kode) {
+         try (Connection conn = db.getConnection()) {
+            JasperDesign jd=JRXmlLoader.load("./src/pendaftaran/ktp/reports/ktp_report.jrxml");
+            HashMap param = new HashMap();
+            PendaftaranModel pm = new PendaftaranModel();
+            this.getByKode(kode);
+
+            param.put("kode_pendaftaran",kode);
+            param.put("image_link","./src/pendaftaran/ktp/img/capture/"+imgPrint);
+            JasperReport jr=JasperCompileManager.compileReport(jd);
+            JasperPrint jp=JasperFillManager.fillReport(jr, param,conn);
+            JasperViewer jv =new JasperViewer(jp,false);
+            jv.setVisible(true);
+       }catch(Exception e){
+             System.out.println(e.getMessage());
+       }
     }
 }

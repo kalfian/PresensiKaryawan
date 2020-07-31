@@ -440,7 +440,14 @@ public class PanelListing extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void printBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printBtnActionPerformed
-        // TODO add your handling code here:
+        int row = jTable1.getSelectedRow();
+        if (row != -1) {
+            String kode = jTable1.getValueAt(row, 0).toString();
+            implementPendaftaran.print(parseInt(kode));
+        }
+        else{
+            //print all list
+        }
     }//GEN-LAST:event_printBtnActionPerformed
 
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
