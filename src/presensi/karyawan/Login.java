@@ -190,13 +190,17 @@ public class Login extends javax.swing.JFrame {
         LoginModel lm = new LoginModel();
         String username = txtUsername.getText();
         String password = txtPassword.getText();
+        lm.setUsername(username);
+        lm.setPassword(password);
         
         //check kreds
         resLogin = implementLogin.checkCreds(lm);
-        
         if(resLogin){
             pref.put(Constant.PREF_NAME, lm.getUsername());
             pref.putInt(Constant.PREF_ID, lm.getId());
+            System.out.println(lm.getUsername());
+        }else{
+            JOptionPane.showMessageDialog(this, "Kredensial Salah !", "Failure", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_loginBtnActionPerformed
 

@@ -33,16 +33,20 @@ public class LoginDAO implements ImplementLogin{
             ps.setString(1, u);
             ps.setString(2, p);
             ResultSet rs = ps.executeQuery();
-            
+            System.out.println("u"+u);
+            System.out.println("p"+p);
+
             if (rs.next()) {
-                System.out.println("cok : "+rs.getString("email"));
                 user.add(rs.getString("id"));
                 user.add(rs.getString("email"));
                 user.add(rs.getString("password"));
                 lm.setUsername(rs.getString("email"));
                 lm.setId(rs.getInt("id"));
+                return true;
             }
-            return true;
+            else{
+                return false;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(LoginDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
