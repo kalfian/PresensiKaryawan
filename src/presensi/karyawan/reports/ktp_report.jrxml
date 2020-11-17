@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="550" pageHeight="612" orientation="Landscape" columnWidth="510" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9649250b-8d40-46bf-931e-d9f132dedae7">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="56"/>
+	<parameter name="kode_pendaftaran" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="image_link" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT p.*, a.agama, k.kelurahan, kec.kecamatan FROM pendaftaran p
+JOIN agama a ON p.id_agama = a.id
+JOIN kelurahan k ON p.id_kelurahan = k.id
+JOIN kecamatan kec ON k.kecamatan_id = kec.id
+
+WHERE p.kode_pendaftaran = $P{kode_pendaftaran}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_kelurahan" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_agama" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kode_pendaftaran" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nkk" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tempat_lahir" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal_lahir" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="status_perkawinan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pekerjaan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="alamat" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kewarganegaraan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="image" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="golongan_darah" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jk" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rt" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rw" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="agama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kelurahan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kecamatan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="319" splitType="Stretch">
+			<image>
+				<reportElement x="2" y="0" width="500" height="317" uuid="622c45ee-4e22-4883-8caf-314460bc7b27"/>
+				<imageExpression><![CDATA["./src/pendaftaran/ktp/img/ktp.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="142" y="167" width="173" height="14" uuid="e401ea41-7d15-4a24-b185-46d91b23011f"/>
+				<textFieldExpression><![CDATA[$F{kelurahan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="181" width="173" height="14" uuid="10a68099-0c63-4714-9035-9f8da8fe1b0c"/>
+				<textFieldExpression><![CDATA[$F{kecamatan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="195" width="173" height="13" uuid="83bf6734-b739-44ae-b06c-6a071b028c15"/>
+				<textFieldExpression><![CDATA[$F{agama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="208" width="173" height="13" uuid="2dbdc321-96c5-4f13-ad2d-11b2243bf6d7"/>
+				<textFieldExpression><![CDATA[$F{status_perkawinan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="142" y="249" width="173" height="14" uuid="cef7cc20-8c8c-4cab-905c-1b42a657fc1c"/>
+				<text><![CDATA[Seumur Hidup]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="142" y="221" width="173" height="14" uuid="f20ea378-ddfb-41ca-afaf-04f9ff0e5101"/>
+				<textFieldExpression><![CDATA[$F{pekerjaan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="235" width="173" height="14" uuid="b8c923fe-c847-43ad-9309-aba3c928da2a"/>
+				<textFieldExpression><![CDATA[$F{kewarganegaraan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="101" width="173" height="14" uuid="e4eac91d-1f3c-4d13-92a1-80c79536cca1"/>
+				<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="115" width="100" height="14" uuid="bc72f8dc-6098-4a06-adb6-478f99179ceb"/>
+				<textFieldExpression><![CDATA[$F{jk}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="132" width="100" height="20" uuid="6a9da0e6-793d-475c-93f8-781509744364"/>
+				<textFieldExpression><![CDATA[$F{alamat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="78" width="173" height="20" uuid="1f38aa9f-3774-44ac-99be-ef4c9f98707c"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kode_pendaftaran}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="153" width="100" height="14" uuid="b3d9d800-d559-4147-a0f2-1f2034a563e4"/>
+				<textFieldExpression><![CDATA[$F{rt}+"/"+$F{rw}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="314" y="126" width="23" height="14" uuid="6d08131e-1119-4aee-9c52-eef2e79404ee"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{golongan_darah}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="348" y="46" width="100" height="80" uuid="79c45230-f88d-40ce-94b5-62407b515d74"/>
+				<imageExpression><![CDATA[$P{image_link}]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

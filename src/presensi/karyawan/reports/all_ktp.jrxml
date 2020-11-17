@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e772f0da-388a-479c-bcb0-9ebea7994952">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     pendaftaran.`id` AS pendaftaran_id,
+     pendaftaran.`id_kelurahan` AS pendaftaran_id_kelurahan,
+     pendaftaran.`id_agama` AS pendaftaran_id_agama,
+     pendaftaran.`kode_pendaftaran` AS pendaftaran_kode_pendaftaran,
+     pendaftaran.`nkk` AS pendaftaran_nkk,
+     pendaftaran.`nama` AS pendaftaran_nama,
+     pendaftaran.`tempat_lahir` AS pendaftaran_tempat_lahir,
+     pendaftaran.`tanggal_lahir` AS pendaftaran_tanggal_lahir,
+     pendaftaran.`status_perkawinan` AS pendaftaran_status_perkawinan,
+     pendaftaran.`pekerjaan` AS pendaftaran_pekerjaan,
+     pendaftaran.`alamat` AS pendaftaran_alamat,
+     pendaftaran.`kewarganegaraan` AS pendaftaran_kewarganegaraan,
+     pendaftaran.`image` AS pendaftaran_image,
+     pendaftaran.`golongan_darah` AS pendaftaran_golongan_darah,
+     pendaftaran.`jk` AS pendaftaran_jk,
+     pendaftaran.`rt` AS pendaftaran_rt,
+     pendaftaran.`rw` AS pendaftaran_rw,
+     kelurahan.kelurahan as pendaftaran_kelurahan,
+     kecamatan.kecamatan as pendaftaran_kecamatan
+	
+FROM
+     `pendaftaran` pendaftaran
+JOIN kelurahan ON kelurahan.id = id_kelurahan
+JOIN kecamatan ON kecamatan.id = kelurahan.kecamatan_id]]>
+	</queryString>
+	<field name="pendaftaran_id" class="java.lang.Integer"/>
+	<field name="pendaftaran_id_kelurahan" class="java.lang.Integer"/>
+	<field name="pendaftaran_id_agama" class="java.lang.Integer"/>
+	<field name="pendaftaran_kode_pendaftaran" class="java.lang.Integer"/>
+	<field name="pendaftaran_nkk" class="java.lang.String"/>
+	<field name="pendaftaran_nama" class="java.lang.String"/>
+	<field name="pendaftaran_tempat_lahir" class="java.lang.String"/>
+	<field name="pendaftaran_tanggal_lahir" class="java.sql.Date"/>
+	<field name="pendaftaran_status_perkawinan" class="java.lang.String"/>
+	<field name="pendaftaran_pekerjaan" class="java.lang.String"/>
+	<field name="pendaftaran_alamat" class="java.lang.String"/>
+	<field name="pendaftaran_kewarganegaraan" class="java.lang.String"/>
+	<field name="pendaftaran_image" class="java.lang.String"/>
+	<field name="pendaftaran_golongan_darah" class="java.lang.String"/>
+	<field name="pendaftaran_jk" class="java.lang.String"/>
+	<field name="pendaftaran_rt" class="java.lang.Integer"/>
+	<field name="pendaftaran_rw" class="java.lang.Integer"/>
+	<field name="pendaftaran_kelurahan" class="java.lang.String"/>
+	<field name="pendaftaran_kecamatan" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="30" width="507" height="22" uuid="3fd10310-614b-49ba-ba34-ded59bf61c55"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Kota Malang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="10" width="507" height="20" uuid="28a29102-bf4a-4dc4-be99-d8ad18c099d6"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Daftar KTP Penduduk]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="420" y="13" width="100" height="20" uuid="f0339fc5-2f81-4e49-a290-97f0cee6796e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kecamatan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="13" width="100" height="20" uuid="b141eb7a-2952-4461-a381-8c143d61a881"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama Pendaftar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="13" width="100" height="20" uuid="5c16932e-f7ad-45c8-ab8d-9fad6eaf7fe9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kelurahan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="228" y="13" width="100" height="20" uuid="23c5e5bb-0d82-49fe-a235-82a02d4e7d0d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nomor KK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="13" width="100" height="20" uuid="ea75602d-4dfb-475f-936b-9bcbbf793909"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kode Pendaftaran]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="28" y="5" width="100" height="20" uuid="d975dcbf-5060-46e4-838a-1e91b32e8e4c"/>
+				<textFieldExpression><![CDATA[$F{pendaftaran_kode_pendaftaran}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="5" width="100" height="20" uuid="7f27f79f-87d1-4386-8bd2-05897c94cd7f"/>
+				<textFieldExpression><![CDATA[$F{pendaftaran_nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="5" width="100" height="20" uuid="955973eb-63c2-4b9e-b200-0308e6373200"/>
+				<textFieldExpression><![CDATA[$F{pendaftaran_nkk}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="5" width="100" height="20" uuid="a1afcc17-dbd9-4253-b517-8efc30c7105d"/>
+				<textFieldExpression><![CDATA[$F{pendaftaran_kelurahan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="5" width="100" height="20" uuid="331734d0-9af9-4f5d-8274-d8362f2f1df0"/>
+				<textFieldExpression><![CDATA[$F{pendaftaran_kecamatan}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+</jasperReport>
