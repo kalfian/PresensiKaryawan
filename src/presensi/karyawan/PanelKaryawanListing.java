@@ -56,13 +56,8 @@ public class PanelKaryawanListing extends javax.swing.JPanel {
      */
     Config db = new Config();
     DefaultTableModel model;
-//    PendaftaranModel pm = new PendaftaranModel();
-//    private List<PendaftaranModel> list;
-//    private final ImplementPendaftaran implementPendaftaran;
-//    
-//    private ArrayList<String> listKec,listKelurahan;
-//    private final ImplementKelurahan implementKelurahan;
-//    private final ImplementKecamatan implementKecamatan;
+    KaryawanModel km = new KaryawanModel();
+    private List<KaryawanModel> list;
     
     private static String idKec = "1";
     private static String idKel = null;
@@ -83,7 +78,7 @@ public class PanelKaryawanListing extends javax.swing.JPanel {
 //        implementKecamatan = new KecamatanDAO();
 //        implementPendaftaran = new PendaftaranDAO();
 //        list = implementPendaftaran.getAllPendaftaran();
-//        getData();
+        getData();
 //        
 //        //
 //        listKec = implementKecamatan.getKecamatan();
@@ -94,8 +89,8 @@ public class PanelKaryawanListing extends javax.swing.JPanel {
     }
     
     public void getData(){
-//        list = implementPendaftaran.getAllPendaftaran();
-//        jTable1.setModel(new TabelModelPendaftaran(list));
+        list = implementKaryawan.getAllKaryawan();
+        jTable1.setModel(new TabelModelKaryawan(list));
     }
 
     /**
@@ -424,23 +419,42 @@ public class PanelKaryawanListing extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-
+        int row = jTable1.getSelectedRow();
+        if (row==-1){
+            return;
+        }
+        String idKaryawan = new KaryawanDAO().idKaryawan.get(row);
+        //autofill
+        list = implementKaryawan.getKaryawanById(parseInt(idKaryawan));
+        
+        txtNama.setText(list.get(0).getNama());
+        txtEmail.setText(list.get(0).getEmail());
+        txtAlamat.setText(list.get(0).getAlamat());
+        int jk = list.get(0).getJk();
+        if (jk == 1) {
+            rdLaki.setSelected(true);
+        } else {
+            rdPerempuan.setSelected(true);
+        }
+        
+        int status = list.get(0).getStatus();
+        
+        if (status == 1){
+            rdAktif.setSelected(true);
+        } else {
+            rdNonAktif.setSelected(true);
+        }
+        int jabatan = list.get(0).getJabatan();
+        int jabatanIdx = listJabatan.indexOf("SuperAdmin");
+        selJabatan.setSelectedIndex(jabatanIdx);
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
-        if(evt.getButton() == MouseEvent.BUTTON3){
-           if(evt.isPopupTrigger() && jTable1.getSelectedRowCount() != 0){
-               RightClick.show(evt.getComponent(),evt.getX(),evt.getY());
-           }
-        }
+        
     }//GEN-LAST:event_jTable1MouseReleased
 
     private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
-        if(evt.getButton() == MouseEvent.BUTTON3){
-           if(evt.isPopupTrigger() && jTable1.getSelectedRowCount() != 0){
-               RightClick.show(evt.getComponent(),evt.getX(),evt.getY());
-           }
-        }
+        
     }//GEN-LAST:event_jTable1MousePressed
 
     private void detailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detailMouseClicked

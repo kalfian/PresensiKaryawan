@@ -5,6 +5,7 @@
  */
 package presensi.karyawan.dao;
 
+import java.util.List;
 import presensi.karyawan.model.KaryawanModel;
 
 /**
@@ -13,4 +14,6 @@ import presensi.karyawan.model.KaryawanModel;
  */
 public interface ImplementKaryawan {
     public void insert(KaryawanModel km);
+    public List<KaryawanModel> getAllKaryawan();
+    public List<KaryawanModel> getKaryawanById(int id);
 }
