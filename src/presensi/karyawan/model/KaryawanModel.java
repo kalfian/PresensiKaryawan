@@ -11,7 +11,7 @@ package presensi.karyawan.model;
  */
 public class KaryawanModel {
     private int id,jk,status,jabatan;
-    private String nama,alamat,email,password;
+    private String nama,alamat,email,password,jabatanString,statusString;
     
 //    id
     public int getId() {
@@ -37,6 +37,14 @@ public class KaryawanModel {
     
     public void setStatus(int status) {
         this.status = status;
+    }
+    
+    public String getStatusString() {
+        return statusString;
+    }
+    
+    public void setStatusString(String status) {
+        this.statusString = status;
     }
     
 //    nama
@@ -78,5 +86,13 @@ public class KaryawanModel {
     
     public void setJabatan(int jabatan) {
         this.jabatan = jabatan;
+    }
+    
+    public String getJabatanString() {
+        return jabatanString;
+    }
+    
+    public void setJabatanString(String jabatanString) {
+        this.jabatanString = jabatanString;
     }
 }
