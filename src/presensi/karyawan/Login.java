@@ -96,7 +96,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Open Sans", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(113, 111, 111));
-        jLabel1.setText("PT INDONESIA MEREDA");
+        jLabel1.setText("PT ERPORATE SOLUSI GLOBAL");
 
         txtUsername.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
         txtUsername.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(225, 225, 225), 1, true));

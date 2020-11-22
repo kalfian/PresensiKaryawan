@@ -57,9 +57,9 @@ public class Dashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        headerPanel.setBackground(new java.awt.Color(0, 204, 204));
+        headerPanel.setBackground(new java.awt.Color(74, 128, 217));
 
-        btnLogout.setBackground(new java.awt.Color(255, 51, 51));
+        btnLogout.setBackground(new java.awt.Color(74, 128, 217));
         btnLogout.setForeground(new java.awt.Color(255, 255, 255));
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -69,7 +69,7 @@ public class Dashboard extends javax.swing.JFrame {
         });
 
         labelWelcome.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        labelWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelWelcome.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelWelcome.setText("Welcome, ");
 
         javax.swing.GroupLayout headerPanelLayout = new javax.swing.GroupLayout(headerPanel);
@@ -77,8 +77,9 @@ public class Dashboard extends javax.swing.JFrame {
         headerPanelLayout.setHorizontalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerPanelLayout.createSequentialGroup()
+                .addGap(43, 43, 43)
                 .addComponent(labelWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 495, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 452, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -90,6 +91,8 @@ public class Dashboard extends javax.swing.JFrame {
                 .addContainerGap(39, Short.MAX_VALUE))
             .addComponent(labelWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        containerPanel.setForeground(new java.awt.Color(247, 247, 250));
 
         jButton1.setText("Kelola Karyawan");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -103,7 +106,7 @@ public class Dashboard extends javax.swing.JFrame {
         containerPanelLayout.setHorizontalGroup(
             containerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(containerPanelLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(43, 43, 43)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
