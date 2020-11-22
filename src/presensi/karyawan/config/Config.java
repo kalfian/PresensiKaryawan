@@ -21,7 +21,7 @@ public class Config {
     private ResultSet rs;
     String dbName = "presensi_ta";
     String user = "root";
-    String pass = "";
+    String pass = "root";
     
     public Connection getConnection (){
         try{

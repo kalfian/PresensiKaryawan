@@ -212,14 +212,17 @@ public class Login extends javax.swing.JFrame {
         String password = txtPassword.getText();
         lm.setUsername(username);
         lm.setPassword(password);
-
+        
         //check kreds
         resLogin = implementLogin.checkCreds(lm);
-        if(resLogin){
+        if (resLogin) {
             pref.put(Constant.PREF_NAME, lm.getUsername());
             pref.putInt(Constant.PREF_ID, lm.getId());
-            System.out.println(lm.getUsername());
-        }else{
+            
+            Dashboard dashboard = new Dashboard();
+            dashboard.setVisible(true);
+            dispose();
+        } else {
             JOptionPane.showMessageDialog(this, "Kredensial Salah !", "Failure", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_loginBtnActionPerformed

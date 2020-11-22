@@ -29,7 +29,7 @@ public class LoginDAO implements ImplementLogin{
         String p = lm.getPassword();
         Boolean res = false;
         try (Connection conn = db.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM r_login WHERE email = ? AND password = ? LIMIT 1");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM r_login WHERE email = ? AND password = md5(?) LIMIT 1");
             ps.setString(1, u);
             ps.setString(2, p);
             ResultSet rs = ps.executeQuery();
