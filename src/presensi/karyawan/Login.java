@@ -123,7 +123,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         loginBtn.setBackground(new java.awt.Color(74, 128, 217));
-        loginBtn.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
+        loginBtn.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
         loginBtn.setForeground(new java.awt.Color(255, 255, 255));
         loginBtn.setText("Sign In to Presence");
         loginBtn.setBorder(null);

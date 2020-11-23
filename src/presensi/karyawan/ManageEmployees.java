@@ -128,7 +128,7 @@ public class ManageEmployees extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton3.setText("Clear");
+        jToggleButton3.setText("Cancel");
 
         jToggleButton2.setText("Save");
         jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
