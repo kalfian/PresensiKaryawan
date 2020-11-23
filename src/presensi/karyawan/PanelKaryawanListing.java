@@ -129,7 +129,7 @@ public class PanelKaryawanListing extends javax.swing.JPanel {
         rdAktif = new javax.swing.JRadioButton();
         rdNonAktif = new javax.swing.JRadioButton();
         jLabel14 = new javax.swing.JLabel();
-        selJabatan = new javax.swing.JComboBox<>();
+        selJabatan = new javax.swing.JComboBox<String>();
         jToggleButton1 = new javax.swing.JToggleButton();
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButton3 = new javax.swing.JToggleButton();
@@ -241,7 +241,7 @@ public class PanelKaryawanListing extends javax.swing.JPanel {
 
         jLabel14.setText("Jabatan");
 
-        selJabatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selJabatan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -250,9 +250,7 @@ public class PanelKaryawanListing extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(194, 194, 194))
+                    .addComponent(jLabel14)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(selJabatan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
