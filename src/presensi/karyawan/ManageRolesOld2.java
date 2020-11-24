@@ -4,44 +4,18 @@
  * and open the template in the editor.
  */
 package presensi.karyawan;
-import java.awt.Component;
-import static java.lang.Integer.parseInt;
-import java.util.List;
-import java.util.prefs.Preferences;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import presensi.karyawan.config.Constant;
-import presensi.karyawan.dao.ImplementJabatan;
-import presensi.karyawan.dao.JabatanDAO;
-import presensi.karyawan.model.*;
 
 /**
  *
- * @author neet
+ * @author Halim
  */
-public class ManageRoles extends javax.swing.JPanel {
-//    private final ImplementJabatan implementJabatan;
-    Preferences pref = Preferences.userNodeForPackage(presensi.karyawan.ManageEmployees.class);
-    public String idJabatan;
-    private List<JabatanModel> list;
-    private final ImplementJabatan implementJabatan;
-
+public class ManageRolesOld2 extends javax.swing.JFrame {
 
     /**
-     * Creates new form ManageRoles
+     * Creates new form Master
      */
-    public ManageRoles() {
+    public ManageRolesOld2() {
         initComponents();
-        btnUpdate.setEnabled(false);
-        btnDel.setEnabled(false);
-        
-        implementJabatan = new JabatanDAO();
-        getData();
-    }
-    
-     public void getData(){
-        list = implementJabatan.getAllJabatan();
-        jTable1.setModel(new TabelModelJabatan(list));
     }
 
     /**
@@ -60,15 +34,23 @@ public class ManageRoles extends javax.swing.JPanel {
         txtNama = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        btnDel = new javax.swing.JToggleButton();
-        btnUpdate = new javax.swing.JToggleButton();
-        btnCancel = new javax.swing.JToggleButton();
-        btnSave = new javax.swing.JToggleButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jToggleButton4 = new javax.swing.JToggleButton();
+        jToggleButton3 = new javax.swing.JToggleButton();
+        jToggleButton2 = new javax.swing.JToggleButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         txtCari = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(247, 247, 250));
 
@@ -89,22 +71,22 @@ public class ManageRoles extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(247, 247, 250));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Actions"));
 
-        btnDel.setBackground(new java.awt.Color(187, 19, 19));
-        btnDel.setText("Delete");
+        jToggleButton1.setBackground(new java.awt.Color(187, 19, 19));
+        jToggleButton1.setText("Delete");
 
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+        jToggleButton4.setText("Update");
+        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
+                jToggleButton4ActionPerformed(evt);
             }
         });
 
-        btnCancel.setText("Cancel");
+        jToggleButton3.setText("Cancel");
 
-        btnSave.setText("Save");
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
+        jToggleButton2.setText("Save");
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
+                jToggleButton2ActionPerformed(evt);
             }
         });
 
@@ -115,23 +97,23 @@ public class ManageRoles extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jToggleButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                    .addComponent(jToggleButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jToggleButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -257,8 +239,26 @@ public class ManageRoles extends javax.swing.JPanel {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        jMenu1.setText("Master");
+
+        jMenuItem1.setText("Karyawan");
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Hari Libur");
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Jabatan");
+        jMenu1.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Data");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -271,20 +271,38 @@ public class ManageRoles extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateActionPerformed
+    }//GEN-LAST:event_jToggleButton4ActionPerformed
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         // TODO add your handling code here:
-        JabatanModel jm = new JabatanModel();
-        jm.setNamaJabatan(txtNama.getText());
-        jm.setCreatedBy(pref.getInt(Constant.PREF_ID, 0));
-        implementJabatan.insert(jm);
-        clearAllInput();
-    }//GEN-LAST:event_btnSaveActionPerformed
+//        KaryawanModel km = new KaryawanModel();
+//        km.setNama(txtNama.getText());
+//        km.setEmail(txtEmail.getText());
+//        km.setAlamat(txtAlamat.getText());
+//        km.setPassword(txtPassword.getText());
+//        int jk = 0;
+//        if (rdLaki.isSelected()) {
+//            jk = 1;
+//        }
+//        km.setJk(jk);
+//
+//        int status = 0;
+//        if (rdAktif.isSelected()) {
+//            status = 1;
+//        }
+//        km.setStatus(status);
+//        km.setId(pref.getInt(Constant.PREF_ID, 0));
+//        String idJabatan = new JabatanDAO().idJabatan.get(selJabatan.getSelectedIndex());
+//        km.setJabatan(parseInt(idJabatan));
+//        implementKaryawan.insert(km);
+//        clearAllInput();
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
 
@@ -293,55 +311,38 @@ public class ManageRoles extends javax.swing.JPanel {
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
 
     }//GEN-LAST:event_jTable1MouseReleased
-    public void clearAllInput(){
-        txtCari.setText("");
-        for(Component control : jPanel2.getComponents())
-        {
-            if(control instanceof JTextField)
-            {
-                JTextField ctrl = (JTextField) control;
-                ctrl.setText("");
-            }
-            else if (control instanceof JComboBox)
-            {
-                JComboBox ctr = (JComboBox) control;
-                ctr.setSelectedIndex(0);
-            }
-        }
-        
-        for(Component control : jPanel3.getComponents())
-        {
-            if(control instanceof JTextField)
-            {
-                JTextField ctrl = (JTextField) control;
-                ctrl.setText("");
-            }
-            else if (control instanceof JComboBox)
-            {
-                JComboBox ctr = (JComboBox) control;
-                ctr.setSelectedIndex(0);
-            }
-        }
-        
-        getData();
-    }
+
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        int row = jTable1.getSelectedRow();
-        btnSave.setEnabled(false);
-        btnUpdate.setEnabled(true);
-        btnDel.setEnabled(true);
-        if (row==-1){
-            return;
-        }
-        idJabatan = new JabatanDAO().idJabatan.get(row);
-        list = implementJabatan.getJabatanById(parseInt(idJabatan));
-
-
-        //autofill
-        list = implementJabatan.getJabatanById(parseInt(idJabatan));
-        txtNama.setText(list.get(0).getNamaJabatan());
+//        int row = jTable1.getSelectedRow();
+//        if (row==-1){
+//            return;
+//        }
+//        String idKaryawan = new KaryawanDAO().idKaryawan.get(row);
+//        //autofill
+//        list = implementKaryawan.getKaryawanById(parseInt(idKaryawan));
+//
+//        txtNama.setText(list.get(0).getNama());
+//        txtEmail.setText(list.get(0).getEmail());
+//        txtAlamat.setText(list.get(0).getAlamat());
+//        int jk = list.get(0).getJk();
+//        if (jk == 1) {
+//            rdLaki.setSelected(true);
+//        } else {
+//            rdPerempuan.setSelected(true);
+//        }
+//
+//        int status = list.get(0).getStatus();
+//
+//        if (status == 1){
+//            rdAktif.setSelected(true);
+//        } else {
+//            rdNonAktif.setSelected(true);
+//        }
+//        int jabatan = list.get(0).getJabatan();
+//        int jabatanIdx = listJabatan.indexOf("SuperAdmin");
+//        selJabatan.setSelectedIndex(jabatanIdx);
     }//GEN-LAST:event_jTable1MouseClicked
-   
+
     private void txtCariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyTyped
 
     }//GEN-LAST:event_txtCariKeyTyped
@@ -355,22 +356,125 @@ public class ManageRoles extends javax.swing.JPanel {
         //        jTable1.setModel(new TabelModelPendaftaran(list));
     }//GEN-LAST:event_txtCariKeyReleased
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ManageRolesOld2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ManageRolesOld2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ManageRolesOld2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ManageRolesOld2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ManageRolesOld2().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btnCancel;
-    private javax.swing.JToggleButton btnDel;
-    private javax.swing.JToggleButton btnSave;
-    private javax.swing.JToggleButton btnUpdate;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JToggleButton jToggleButton3;
+    private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JTextField txtCari;
     private javax.swing.JTextField txtNama;
     // End of variables declaration//GEN-END:variables

@@ -14,6 +14,8 @@ import presensi.karyawan.model.KaryawanModel;
  */
 public interface ImplementKaryawan {
     public void insert(KaryawanModel km);
+    public void update(int id,KaryawanModel pm);
+    public void delete(int id);
     public List<KaryawanModel> getAllKaryawan();
     public List<KaryawanModel> getKaryawanById(int id);
 }
