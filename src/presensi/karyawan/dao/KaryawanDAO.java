@@ -104,14 +104,22 @@ public class KaryawanDAO implements ImplementKaryawan{
     public List<KaryawanModel> getKaryawanById(int id) {
         list = new ArrayList<KaryawanModel>();
         ArrayList<String> karyawan=new ArrayList<String>();   
-        idKaryawan.clear();
+//        idKaryawan.clear();
         try (Connection conn = db.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("SELECT * from m_user JOIN r_login on r_login.user_id = m_user.id where m_user.id = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+//                idKaryawan.add(rs.getString("id"));
                 KaryawanModel pm = new KaryawanModel();
-                pm.setNama(rs.getString("nama_jabatan"));
+//                pm.setId(rs.getInt(1));
+                pm.setNama(rs.getString("nama"));
+                pm.setEmail(rs.getString("email"));
+                pm.setAlamat(rs.getString("alamat"));
+                pm.setJk(rs.getInt("jenis_kelamin"));
+                pm.setJabatan(rs.getInt("jabatan_id"));
+                int status = rs.getInt("status");
+                pm.setStatus(status);
                 list.add(pm);
             }
             
