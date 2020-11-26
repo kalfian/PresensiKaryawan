@@ -9,9 +9,9 @@ package presensi.karyawan.model;
  *
  * @author neet
  */
-public class JabatanModel {
-    private int id,created_by;
-    private String nama,tgl;
+public class WeekendModel {
+     private int id,created_by;
+    private String tgl,ket;
     
     //id
     public int getId() {
@@ -23,15 +23,6 @@ public class JabatanModel {
     }
     
     //nama
-    public String getNamaJabatan() {
-        return nama;
-    }
-
-    public void setNamaJabatan(String nama) {
-        this.nama = nama;
-    }
-    
-       //nama
     public int getCreatedBy() {
         return created_by;
     }
@@ -40,12 +31,19 @@ public class JabatanModel {
         this.created_by = created_by;
     }
     
-    public String getTgl() {
+    public String getTanggalLibur() {
         return tgl;
     }
 
-    public void setTgl(String tgl) {
+    public void setTanggalLibur(String tgl) {
         this.tgl = tgl;
     }
     
+    public String getKet() {
+        return ket;
+    }
+
+    public void setKet(String ket) {
+        this.ket = ket;
+    }
 }

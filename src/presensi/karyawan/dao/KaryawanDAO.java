@@ -28,8 +28,8 @@ public class KaryawanDAO implements ImplementKaryawan{
     Config db = new Config();
     private List<KaryawanModel> list;
     public static ArrayList<String> idKaryawan = new ArrayList<String>();
-     public void insert(KaryawanModel km) {
-
+    
+    public void insert(KaryawanModel km) {
         try (Connection conn = db.getConnection()) {
             //insert user
             PreparedStatement ps = conn.prepareStatement("INSERT INTO m_user VALUES(?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
@@ -110,9 +110,7 @@ public class KaryawanDAO implements ImplementKaryawan{
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-//                idKaryawan.add(rs.getString("id"));
                 KaryawanModel pm = new KaryawanModel();
-//                pm.setId(rs.getInt(1));
                 pm.setNama(rs.getString("nama"));
                 pm.setEmail(rs.getString("email"));
                 pm.setAlamat(rs.getString("alamat"));

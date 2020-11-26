@@ -625,7 +625,8 @@ public class ManageEmployees extends javax.swing.JPanel {
             return;
         }
         idKaryawan = new KaryawanDAO().idKaryawan.get(row);
-
+        
+        System.out.println("id " + idKaryawan);
         //autofill
         list = implementKaryawan.getKaryawanById(parseInt(idKaryawan));
 

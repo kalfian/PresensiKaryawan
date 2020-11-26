@@ -125,7 +125,7 @@ public class JabatanDAO implements ImplementJabatan {
     @Override
     public List<JabatanModel> getAllJabatan() {
         list = new ArrayList<JabatanModel>();
-        ArrayList<String> karyawan=new ArrayList<String>();   
+        ArrayList<String> jabatan=new ArrayList<String>();   
         idJabatan.clear();
         try (Connection conn = db.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM m_jabatan");
