@@ -14,6 +14,6 @@ Todo List :
 - [x] Fitur CRUD Hari Libur
 - [ ] Engine Presensi
 - [ ] Engine Face Detection
-- [ ] Pencarian Karyawan
+- [X] Pencarian Karyawan
 - [ ] Pencarian Jabatan
 - [ ] Pencarian Hari Libur
