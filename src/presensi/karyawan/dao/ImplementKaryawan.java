@@ -18,4 +18,5 @@ public interface ImplementKaryawan {
     public void delete(int id);
     public List<KaryawanModel> getAllKaryawan();
     public List<KaryawanModel> getKaryawanById(int id);
+    public List<KaryawanModel> filterKaryawan(String cari);
 }

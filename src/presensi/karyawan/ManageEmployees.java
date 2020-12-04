@@ -392,14 +392,14 @@ public class ManageEmployees extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         txtCari.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCariKeyTyped(evt);
-            }
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCariKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCariKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCariKeyTyped(evt);
             }
         });
 
@@ -661,8 +661,8 @@ public class ManageEmployees extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCariKeyPressed
 
     private void txtCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyReleased
-        //        list = implementPendaftaran.filterPendaftaran(idKec,idKel,kewarganegaraan,status,txtCari.getText());
-        //        jTable1.setModel(new TabelModelPendaftaran(list));
+        list = implementKaryawan.filterKaryawan(txtCari.getText());
+        jTable1.setModel(new TabelModelKaryawan(list));
     }//GEN-LAST:event_txtCariKeyReleased
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed

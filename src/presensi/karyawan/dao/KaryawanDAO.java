@@ -11,7 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
@@ -180,6 +182,63 @@ public class KaryawanDAO implements ImplementKaryawan{
             }
         }catch (SQLException ex) {
             Logger.getLogger(KaryawanDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public List<KaryawanModel> filterKaryawan(String cari) {
+        list = new ArrayList<KaryawanModel>();
+        Map<String, Object> params = new HashMap<>();
+        String filterQ = "";
+        try (Connection conn = db.getConnection()) {
+            if(!cari.equals("")){
+                String castStatus = "";
+                if (cari.toLowerCase().contains("aktif")) {
+                    if(cari.toLowerCase() == "aktif") {
+                        castStatus = " OR m_user.status = 1 ";
+                    } else { 
+                        castStatus = " OR m_user.status = 0 ";
+                    }
+                }
+                filterQ = " where m_user.nama LIKE  ? "
+                        + "OR m_user.alamat LIKE  ? "
+                        + "OR r_login.email LIKE  ? "
+                        + "OR m_jabatan.nama_jabatan LIKE  ? "
+                        + castStatus
+                        + "ESCAPE '!'";
+            }
+            
+            String q = "SELECT r_login.email, m_user.*, m_jabatan.nama_jabatan FROM r_login "
+                    + "JOIN m_user ON m_user.id = r_login.user_id "
+                    + "JOIN m_jabatan ON m_jabatan.id = m_user.jabatan_id"+filterQ;
+            PreparedStatement ps = conn.prepareStatement(q);
+            if(!cari.equals("")){
+                ps.setString(1, "%" + cari + "%");
+                ps.setString(2, "%" + cari + "%");
+                ps.setString(3, "%" + cari + "%");
+                ps.setString(4, "%" + cari + "%");
+            }
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) { 
+                KaryawanModel pm = new KaryawanModel();
+                idKaryawan.add(rs.getString("id"));
+                pm.setNama(rs.getString("nama"));
+                pm.setJabatanString(rs.getString("nama_jabatan"));
+                pm.setEmail(rs.getString("email"));
+                int status = rs.getInt("status");
+                String txtStatus = "";
+                if(status == 1) 
+                    txtStatus = "Aktif";
+                else
+                    txtStatus = "Non-Aktif";
+                pm.setStatusString(txtStatus);
+                list.add(pm);
+            }
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(KaryawanDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 }
