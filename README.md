@@ -17,4 +17,3 @@ Todo List :
 - [X] Pencarian Karyawan
 - [X] Pencarian Jabatan
 - [X] Pencarian Hari Libur
->>>>>>> nando
