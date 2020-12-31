@@ -11,7 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -116,6 +118,41 @@ public class WeekendDAO implements ImplementWeekend{
                 list.add(wm);
             }
             
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(WeekendDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    @Override
+    public List<WeekendModel> filterWeekend(String cari) {
+        list = new ArrayList<WeekendModel>();
+        Map<String, Object> params = new HashMap<>();
+        String filterQ = "";
+        try (Connection conn = db.getConnection()) {
+            if(!cari.equals("")){
+                filterQ = " where keterangan LIKE ? " 
+                        + "OR tanggal_libur LIKE ? "
+                        + "ESCAPE '!'";
+            }
+            
+            String q = "SELECT * FROM m_hari_libur"+filterQ;
+            PreparedStatement ps = conn.prepareStatement(q);
+            if(!cari.equals("")){
+                ps.setString(1, "%" + cari + "%");
+                ps.setString(2, "%" + cari + "%");
+            }
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) { 
+                WeekendModel wm = new WeekendModel();
+                idWeekend.add(rs.getString("id"));
+                wm.setTanggalLibur(rs.getString("tanggal_libur"));
+                wm.setKet(rs.getString("keterangan"));
+              
+                list.add(wm);
+            }
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(WeekendDAO.class.getName()).log(Level.SEVERE, null, ex);

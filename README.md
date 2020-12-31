@@ -15,5 +15,6 @@ Todo List :
 - [ ] Engine Presensi
 - [ ] Engine Face Detection
 - [X] Pencarian Karyawan
-- [ ] Pencarian Jabatan
-- [ ] Pencarian Hari Libur
+- [X] Pencarian Jabatan
+- [X] Pencarian Hari Libur
+>>>>>>> nando

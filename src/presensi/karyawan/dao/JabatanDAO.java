@@ -11,7 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -137,6 +139,38 @@ public class JabatanDAO implements ImplementJabatan {
                 list.add(pm);
             }
             
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(JabatanDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    @Override
+    public List<JabatanModel> filterjabatan(String cari) {
+        list = new ArrayList<JabatanModel>();
+        Map<String, Object> params = new HashMap<>();
+        String filterQ = "";
+        try (Connection conn = db.getConnection()) {
+            if(!cari.equals("")){
+                filterQ = " where nama_jabatan LIKE ? " + "ESCAPE '!'";
+            }
+            
+            String q = "SELECT * FROM m_jabatan"+filterQ;
+            PreparedStatement ps = conn.prepareStatement(q);
+            if(!cari.equals("")){
+                ps.setString(1, "%" + cari + "%");
+            }
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) { 
+                JabatanModel jm = new JabatanModel();
+                idJabatan.add(rs.getString("id"));
+                jm.setNamaJabatan(rs.getString("nama_jabatan"));
+                jm.setCreatedBy(rs.getInt("create_by"));
+              
+                list.add(jm);
+            }
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(JabatanDAO.class.getName()).log(Level.SEVERE, null, ex);
