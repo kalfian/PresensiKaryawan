@@ -368,8 +368,8 @@ public class ManageWeekends extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCariKeyPressed
 
     private void txtCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyReleased
-        //        list = implementPendaftaran.filterPendaftaran(idKec,idKel,kewarganegaraan,status,txtCari.getText());
-        //        jTable1.setModel(new TabelModelPendaftaran(list));
+        list = implementWeekend.filterWeekend(txtCari.getText());
+        jTable1.setModel(new TabelModelWeekend(list));
     }//GEN-LAST:event_txtCariKeyReleased
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

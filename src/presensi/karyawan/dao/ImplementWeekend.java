@@ -18,4 +18,5 @@ public interface ImplementWeekend {
     public void delete(int id);
     public List<WeekendModel> getAllWeekend();
     public List<WeekendModel> getWeekendById(int id);
+    public List<WeekendModel> filterWeekend(String cari);
 }

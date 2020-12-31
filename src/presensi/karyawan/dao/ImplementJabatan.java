@@ -20,4 +20,5 @@ public interface ImplementJabatan {
     public void update(int id,JabatanModel pm);
     public List<JabatanModel> getJabatanById(int id);
     public void delete(int id);
+    public List<JabatanModel> filterjabatan(String cari);
 }
