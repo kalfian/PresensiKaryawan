@@ -12,9 +12,10 @@ Todo List :
 - [x] Fitur CRUD Karyawan
 - [x] Fitur CRUD Jabatan
 - [x] Fitur CRUD Hari Libur
-- [ ] Engine Presensi
-- [ ] Engine Face Detection
+- [X] Engine Presensi
+- [X] Engine Face Detection
 - [X] Pencarian Karyawan
 - [X] Pencarian Jabatan
 - [X] Pencarian Hari Libur
->>>>>>> nando
+- [ ] Testing
+- [ ] Bug layout (responsive)

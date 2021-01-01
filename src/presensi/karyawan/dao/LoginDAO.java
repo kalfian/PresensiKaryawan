@@ -42,6 +42,8 @@ public class LoginDAO implements ImplementLogin{
                 user.add(rs.getString("password"));
                 lm.setUsername(rs.getString("email"));
                 lm.setId(rs.getInt("id"));
+                lm.setUserId(rs.getInt("user_id"));
+                lm.setRoleId(rs.getInt("role"));
                 return true;
             }
             else{

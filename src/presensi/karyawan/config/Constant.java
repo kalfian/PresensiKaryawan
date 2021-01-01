@@ -14,4 +14,6 @@ import java.util.HashMap;
 public final class Constant {
     public static final String PREF_NAME = "pref_name";
     public static final String PREF_ID = "pref_id";
+    public static final String PREF_USER_ID = "pref_user_id";
+    public static final String PREF_ROLE = "pref_role";
 }
