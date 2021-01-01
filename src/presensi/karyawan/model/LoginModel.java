@@ -10,7 +10,7 @@ package presensi.karyawan.model;
  * @author Teknis SM
  */
 public class LoginModel {
-    private int id;
+    private int id,user_id,role_id;
     private String username,password;
     
     public int getId(){
@@ -18,6 +18,21 @@ public class LoginModel {
     }
     public void setId(int id){
         this.id = id;
+    }
+    
+    public int getRoleId(){
+        return role_id;
+    }
+    public void setRoleId(int role_id){
+        this.role_id = role_id;
+    }
+    
+    
+    public int getUserId(){
+        return user_id;
+    }
+    public void setUserId(int user_id){
+        this.user_id = user_id;
     }
     
     public String getUsername() {

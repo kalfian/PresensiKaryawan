@@ -33,10 +33,15 @@ public class Dashboard extends javax.swing.JFrame {
 //       this.setResizable(false);
 //       this.setVisible(true);
        initComponents();
-       
+        System.out.println("ss" + pref.getInt(Constant.PREF_ROLE, 0));
+        if (pref.getInt(Constant.PREF_ROLE, 0) == 1) {
+            jMenu1.setVisible(true);
+        } else {
+            jMenu1.setVisible(false);
+        }
        
         
-        labelWelcome.setText(String.format("Welcome %s", pref.get(Constant.PREF_NAME, "-")));
+       labelWelcome.setText(String.format("Welcome %s", pref.get(Constant.PREF_NAME, "-")));
         
     }
 
@@ -142,6 +147,11 @@ public class Dashboard extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Presensi");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenu2MousePressed(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -197,6 +207,12 @@ public class Dashboard extends javax.swing.JFrame {
         ManageRoles roles = new ManageRoles();
         jpload.jPanelLoader(containerPanel, roles);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenu2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MousePressed
+        // TODO add your handling code here:
+        Presence presence = new Presence();
+        jpload.jPanelLoader(containerPanel, presence);
+    }//GEN-LAST:event_jMenu2MousePressed
 
     /**
      * @param args the command line arguments

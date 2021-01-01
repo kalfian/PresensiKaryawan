@@ -18,7 +18,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 import javax.swing.JOptionPane;
+import presensi.karyawan.AddDatasets;
 import presensi.karyawan.config.Config;
+import presensi.karyawan.config.Constant;
 import presensi.karyawan.model.KaryawanModel;
 import presensi.karyawan.model.LoginModel;
 
@@ -28,6 +30,7 @@ import presensi.karyawan.model.LoginModel;
  */
 public class KaryawanDAO implements ImplementKaryawan{
     Config db = new Config();
+    Preferences pref = Preferences.userNodeForPackage(presensi.karyawan.dao.KaryawanDAO.class);
     private List<KaryawanModel> list;
     public static ArrayList<String> idKaryawan = new ArrayList<String>();
     
@@ -51,7 +54,8 @@ public class KaryawanDAO implements ImplementKaryawan{
                lastId = rs.getInt(1);
             
             //insert creds
-            PreparedStatement pss = conn.prepareStatement("INSERT INTO r_login VALUES(?,?,?,?,?)");
+            
+            PreparedStatement pss = conn.prepareStatement("INSERT INTO r_login VALUES(?,?,?,md5(?),?)");
             pss.setString(1, null);
             pss.setInt(2, lastId);
             pss.setString(3, km.getEmail());
@@ -61,6 +65,10 @@ public class KaryawanDAO implements ImplementKaryawan{
             
             if(pss.executeUpdate() == 1){
                 JOptionPane.showMessageDialog(null, "Data Berhasil ditambahkan!");
+                AddDatasets ad =  new AddDatasets();
+                ad.userId = lastId;
+                ad.username = km.getEmail();
+                ad.setVisible(true);
             }
             
         }catch (SQLException ex) {

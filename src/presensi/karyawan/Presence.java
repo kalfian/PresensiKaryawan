@@ -5,17 +5,86 @@
  */
 package presensi.karyawan;
 
+import com.googlecode.javacv.cpp.opencv_contrib;
+import static com.googlecode.javacv.cpp.opencv_contrib.createEigenFaceRecognizer;
+import com.googlecode.javacv.cpp.opencv_core;
+import static com.googlecode.javacv.cpp.opencv_core.IPL_DEPTH_8U;
+import static com.googlecode.javacv.cpp.opencv_highgui.cvLoadImage;
+import static com.googlecode.javacv.cpp.opencv_imgproc.CV_BGR2GRAY;
+import static com.googlecode.javacv.cpp.opencv_imgproc.cvCvtColor;
+import com.mysql.cj.Constants;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FilenameFilter;
+import static java.lang.Integer.parseInt;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.prefs.Preferences;
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfByte;
+import org.opencv.core.MatOfRect;
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
+import org.opencv.objdetect.CascadeClassifier;
+import static org.opencv.objdetect.Objdetect.CASCADE_SCALE_IMAGE;
+import org.opencv.videoio.VideoCapture;
+import presensi.karyawan.config.Constant;
+import presensi.karyawan.dao.ImplementKaryawan;
+import presensi.karyawan.dao.ImplementPresensi;
+import presensi.karyawan.dao.KaryawanDAO;
+import presensi.karyawan.dao.PresensiDAO;
+import presensi.karyawan.model.KaryawanModel;
+import presensi.karyawan.model.PresensiModel;
+
 /**
  *
- * @author Halim
+ * @author neet
  */
-public class Presence extends javax.swing.JFrame {
-
+public class Presence extends javax.swing.JPanel {
+    Preferences pref = Preferences.userNodeForPackage(presensi.karyawan.Presence.class);
+    KaryawanModel km = new KaryawanModel();
+    private List<KaryawanModel> list;
+    
+//  String source = "D:\\Kuliah\\opencv\\opencv\\sources\\data\\lbpcascades\\lbpcascade_frontalface.xml"; //paste here
+    String source = "src/presensi/karyawan/algo/haarcascade_frontalface_alt2.xml";
+    CascadeClassifier faceDetector = new CascadeClassifier(source);
+    Mat frame = new Mat();
+    Mat image_roi;
+    private final ImplementKaryawan implementKaryawan;
+    private final ImplementPresensi implementPresensi;
+    String username = pref.get(Constant.PREF_NAME, "-");
+    String dirName;
+    String nameFile;
+    int user_id;
+    VideoCapture capture;
+    
+    static {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+    }
+    
     /**
      * Creates new form Presence
      */
     public Presence() {
         initComponents();
+        implementKaryawan = new KaryawanDAO();
+        implementPresensi = new PresensiDAO();
+       
+        txtDate.setText(getTanggal());
+        txtTime.setText(getWaktu());
     }
 
     /**
@@ -28,38 +97,28 @@ public class Presence extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        pulangBtn = new javax.swing.JButton();
-        masukBtn = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        txtDate = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtTime = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtKet = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        masukBtn = new javax.swing.JButton();
+        pulangBtn = new javax.swing.JButton();
+        masukBtn1 = new javax.swing.JButton();
+        btnRecognize = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(247, 247, 250));
 
-        pulangBtn.setBackground(new java.awt.Color(255, 105, 94));
-        pulangBtn.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
-        pulangBtn.setForeground(new java.awt.Color(255, 255, 255));
-        pulangBtn.setText("Pulang");
-        pulangBtn.setBorder(null);
-        pulangBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pulangBtnActionPerformed(evt);
-            }
-        });
+        jLabel4.setFont(new java.awt.Font("Open Sans", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(113, 111, 111));
+        jLabel4.setText("Presensi Karyawan");
 
-        masukBtn.setBackground(new java.awt.Color(33, 186, 69));
-        masukBtn.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
-        masukBtn.setForeground(new java.awt.Color(255, 255, 255));
-        masukBtn.setText("Masuk");
-        masukBtn.setBorder(null);
-        masukBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                masukBtnActionPerformed(evt);
-            }
-        });
+        jPanel2.setBackground(new java.awt.Color(247, 247, 250));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -69,120 +128,316 @@ public class Presence extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 330, Short.MAX_VALUE)
+            .addGap(0, 294, Short.MAX_VALUE)
         );
 
-        jLabel4.setFont(new java.awt.Font("Open Sans", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(113, 111, 111));
-        jLabel4.setText("Welcome, Roby Firnando");
+        jLabel2.setText("Jam :");
 
-        jLabel5.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(113, 111, 111));
-        jLabel5.setText("Senin, 28 November 2020, Pukul 07.00 WIB");
+        jLabel3.setText("Tanggal : ");
 
-        jLabel6.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(113, 111, 111));
-        jLabel6.setText("Klik tombol yang tersedia untuk melakukan presensi");
+        txtKet.setColumns(20);
+        txtKet.setRows(5);
+        jScrollPane1.setViewportView(txtKet);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(189, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(masukBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pulangBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(189, 189, 189))
+                        .addContainerGap()
+                        .addComponent(jLabel4))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(162, 162, 162)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(2, 2, 2)
+                                .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE))))))
+                .addContainerGap(234, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
                 .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(masukBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pulangBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        jLabel6.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(113, 111, 111));
+        jLabel6.setText("Klik tombol yang tersedia untuk melakukan presensi");
+
+        masukBtn.setBackground(new java.awt.Color(33, 186, 69));
+        masukBtn.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
+        masukBtn.setForeground(new java.awt.Color(255, 255, 255));
+        masukBtn.setText("Nyalakan Kamera");
+        masukBtn.setBorder(null);
+        masukBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                masukBtnActionPerformed(evt);
+            }
+        });
+
+        pulangBtn.setBackground(new java.awt.Color(255, 105, 94));
+        pulangBtn.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
+        pulangBtn.setForeground(new java.awt.Color(255, 255, 255));
+        pulangBtn.setText("Submit Pulang");
+        pulangBtn.setBorder(null);
+        pulangBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pulangBtnActionPerformed(evt);
+            }
+        });
+
+        masukBtn1.setBackground(new java.awt.Color(33, 186, 69));
+        masukBtn1.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
+        masukBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        masukBtn1.setText("Submit Datang");
+        masukBtn1.setBorder(null);
+        masukBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                masukBtn1ActionPerformed(evt);
+            }
+        });
+
+        btnRecognize.setBackground(new java.awt.Color(0, 255, 153));
+        btnRecognize.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
+        btnRecognize.setForeground(new java.awt.Color(255, 255, 255));
+        btnRecognize.setText("Capture");
+        btnRecognize.setBorder(null);
+        btnRecognize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecognizeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(234, 234, 234)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(masukBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRecognize, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(masukBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pulangBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(masukBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(masukBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pulangBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRecognize, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pulangBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pulangBtnActionPerformed
-        
-    }//GEN-LAST:event_pulangBtnActionPerformed
-
     private void masukBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masukBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_masukBtnActionPerformed
+        (new Thread(){
+            public void run(){
+                capture = new VideoCapture(0);//0 mean your default web cam
+                MatOfRect rostros = new MatOfRect();
+                MatOfByte mem = new MatOfByte();
+                
+                Mat frame_gray = new Mat();
+                
+                Rect[] facesArray;      
+                Graphics g;
+                BufferedImage buff = null;
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+                while(capture.read(frame)){
+                    if(frame.empty()){
+                        System.out.println("No detection");
+                        break;
+                    }else{
+                        try {
+                            g = jPanel2.getGraphics();
+                            Imgproc.cvtColor(frame, frame_gray, Imgproc.COLOR_BGR2GRAY);
+                            Imgproc.equalizeHist(frame_gray, frame_gray);
+                            double w = frame.width();
+                            double h = frame.height();
+                            faceDetector.detectMultiScale(frame_gray, rostros, 1.1, 2, 0|CASCADE_SCALE_IMAGE, new Size(30, 30), new Size(w, h) );
+                            facesArray = rostros.toArray();
+//                            System.out.println("No of faces: "+facesArray.length);
+                         
+                            for (int i = 0; i < facesArray.length; i++) {
+                               
+                                Point center = new Point((facesArray[i].x + facesArray[i].width * 0.5), 
+                                        (facesArray[i].y + facesArray[i].height * 0.5));
+                                Imgproc.ellipse(frame, 
+                                        center, 
+                                        new Size(facesArray[i].width * 0.5, facesArray[i].height * 0.5), 
+                                        0, 
+                                        0, 
+                                        360, 
+                                        new Scalar(255, 0, 255), 4, 8, 0);
+                             
+                                Mat faceROI = frame_gray.submat(facesArray[i]);
+                                Imgproc.rectangle(frame,
+                                        new Point(facesArray[i].x,facesArray[i].y),
+                                        new Point(facesArray[i].x+facesArray[i].width,facesArray[i].y+facesArray[i].height),
+                                        new Scalar(123, 213, 23, 220));
+                              //  Imgproc.putText(frame, "Width: "+faceROI.width()+" Height: "+faceROI.height()+" X = "+facesArray[i].x+
+                               //         " Y = "+facesArray[i].y, new Point(facesArray[i].x, facesArray[i].y-20), 1, 1, new Scalar(255,255,255));
+                                Rect rectCrop = new Rect(facesArray[i].x, facesArray[i].y, 252, 252);
+                                image_roi = new Mat(frame,rectCrop);
+                                Imgproc.putText(frame, "handsome guy found !"
+                                     , new Point(facesArray[i].x, facesArray[i].y-20), 1, 1, new Scalar(255,255,255));
+                            }
+                           
+                            int no= facesArray.length;
+//                            lblnumber.setText(String.valueOf(no));
+                            
+                            Imgcodecs.imencode(".bmp", frame, mem);
+
+                            Image im = ImageIO.read(new ByteArrayInputStream(mem.toArray()));
+                            buff = (BufferedImage) im;
+                            if(g.drawImage(buff, 0, 0, jPanel2.getWidth(), jPanel2.getHeight() , 0, 0, buff.getWidth(), buff.getHeight(), null)){
+                            }
+                            
+                        } catch (Exception ex) {
+                   
+                        }
+                    }
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Presence.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Presence.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Presence.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Presence.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        }).start();
+    }//GEN-LAST:event_masukBtnActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Presence().setVisible(true);
-            }
-        });
+    private String getTanggal() {  
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");  
+        Date date = new Date();  
+        return dateFormat.format(date);  
     }
+    
+    private String getWaktu() {  
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");  
+        Date date = new Date();  
+        return dateFormat.format(date);  
+    }
+    
+    private void pulangBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pulangBtnActionPerformed
+        presensiAct("pulang");
+    }//GEN-LAST:event_pulangBtnActionPerformed
+
+    private void masukBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masukBtn1ActionPerformed
+//        Imgcodecs.imwrite("D:\\Kuliah\\datasets\\x.jpg", frame);
+        presensiAct("datang");
+    }//GEN-LAST:event_masukBtn1ActionPerformed
+
+    private void btnRecognizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecognizeActionPerformed
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd",Locale.US);/* w  ww .  j av  a  2s.  co  m*/
+        String formattedDate = sdf.format(new Date());
+        dirName = formattedDate+"_"+pref.getInt(Constant.PREF_USER_ID, 0);
+        
+        //capture
+        username.split("@")[0].replaceAll(" ", "_").toLowerCase();
+        File d = new File("src/presensi/assets/presensi/"+dirName);
+        if(!d.exists()){
+            d.mkdir();
+        }
+        nameFile = username.split("@")[0].replaceAll(" ", "_").toLowerCase();
+        
+        Imgcodecs.imwrite("src/presensi/assets/presensi/"+dirName+"/"+nameFile+"_datang.jpg",image_roi);
+        capture.release();
+    }//GEN-LAST:event_btnRecognizeActionPerformed
+
+    private void presensiAct(String type){
+        String res = implementPresensi.recognizer(dirName, nameFile+"_datang.jpg");
+        String recog[] = res.split("\\|");
+        int prefUserId = pref.getInt(Constant.PREF_USER_ID, 0);
+        int recogPerson = parseInt(recog[1]);
+        list = implementKaryawan.getKaryawanById(recogPerson);
+        if(prefUserId != recogPerson) {
+            JOptionPane.showMessageDialog(null, "Presensi gagal ,wajah dikenali sebagai " + list.get(0).getNama() +", namun tidak sesuai dengan akun saat ini !");
+            return;
+        }
+        
+        if (recog[0].equals("valid") || recog[0].equals("possible")) {
+            PresensiModel pmo = new PresensiModel();
+            pmo.setUserId(pref.getInt(Constant.PREF_USER_ID, 0));
+
+            if (type == "datang") {
+                pmo.setFotoMasuk(nameFile+".jpg");
+                pmo.setFotoPulang(null);
+                pmo.setJamMasuk(getWaktu());
+                pmo.setJamKeluar(null);
+            } else {
+                pmo.setFotoMasuk(null);
+                pmo.setFotoPulang(nameFile+".jpg");
+                pmo.setJamMasuk(null);
+                pmo.setJamKeluar(getWaktu());
+            }
+
+            pmo.setTanggal(getTanggal());
+            pmo.setKeterangan(txtKet.getText());
+            Boolean presensi = implementPresensi.insert(pmo);
+            
+            if(presensi) { 
+                JOptionPane.showMessageDialog(null, "Presensi berhasil , wajah dikenali sebagai " + list.get(0).getNama());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Wajah sama sekali tidak dikenali !");
+        }
+        
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRecognize;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton masukBtn;
+    private javax.swing.JButton masukBtn1;
     private javax.swing.JButton pulangBtn;
+    private javax.swing.JLabel txtDate;
+    private javax.swing.JTextArea txtKet;
+    private javax.swing.JLabel txtTime;
     // End of variables declaration//GEN-END:variables
 }

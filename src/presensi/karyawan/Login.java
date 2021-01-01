@@ -218,6 +218,8 @@ public class Login extends javax.swing.JFrame {
         if (resLogin) {
             pref.put(Constant.PREF_NAME, lm.getUsername());
             pref.putInt(Constant.PREF_ID, lm.getId());
+            pref.putInt(Constant.PREF_USER_ID, lm.getUserId());
+            pref.putInt(Constant.PREF_ROLE, lm.getRoleId());
             
             Dashboard dashboard = new Dashboard();
             dashboard.setVisible(true);
