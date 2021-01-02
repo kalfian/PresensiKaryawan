@@ -109,7 +109,6 @@ public class Presence extends javax.swing.JPanel {
         masukBtn = new javax.swing.JButton();
         pulangBtn = new javax.swing.JButton();
         masukBtn1 = new javax.swing.JButton();
-        btnRecognize = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(247, 247, 250));
 
@@ -223,17 +222,6 @@ public class Presence extends javax.swing.JPanel {
             }
         });
 
-        btnRecognize.setBackground(new java.awt.Color(0, 255, 153));
-        btnRecognize.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
-        btnRecognize.setForeground(new java.awt.Color(255, 255, 255));
-        btnRecognize.setText("Capture");
-        btnRecognize.setBorder(null);
-        btnRecognize.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRecognizeActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -247,15 +235,13 @@ public class Presence extends javax.swing.JPanel {
                         .addGap(234, 234, 234)
                         .addComponent(jLabel6))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
+                        .addGap(165, 165, 165)
                         .addComponent(masukBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRecognize, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(masukBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pulangBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(209, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,8 +253,7 @@ public class Presence extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(masukBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(masukBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pulangBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRecognize, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pulangBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -366,7 +351,7 @@ public class Presence extends javax.swing.JPanel {
         presensiAct("datang");
     }//GEN-LAST:event_masukBtn1ActionPerformed
 
-    private void btnRecognizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecognizeActionPerformed
+    private void presensiAct(String type){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd",Locale.US);/* w  ww .  j av  a  2s.  co  m*/
         String formattedDate = sdf.format(new Date());
         dirName = formattedDate+"_"+pref.getInt(Constant.PREF_USER_ID, 0);
@@ -379,12 +364,17 @@ public class Presence extends javax.swing.JPanel {
         }
         nameFile = username.split("@")[0].replaceAll(" ", "_").toLowerCase();
         
-        Imgcodecs.imwrite("src/presensi/assets/presensi/"+dirName+"/"+nameFile+"_datang.jpg",image_roi);
+        Imgcodecs.imwrite("src/presensi/assets/presensi/"+dirName+"/"+nameFile+"_"+type+".jpg",image_roi);
         capture.release();
-    }//GEN-LAST:event_btnRecognizeActionPerformed
-
-    private void presensiAct(String type){
-        String res = implementPresensi.recognizer(dirName, nameFile+"_datang.jpg");
+        try
+        {
+            Thread.sleep(5000);
+        }
+        catch(InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
+        String res = implementPresensi.recognizer(dirName, nameFile+"_"+type+".jpg");
         String recog[] = res.split("\\|");
         int prefUserId = pref.getInt(Constant.PREF_USER_ID, 0);
         int recogPerson = parseInt(recog[1]);
@@ -425,7 +415,6 @@ public class Presence extends javax.swing.JPanel {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRecognize;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
