@@ -114,17 +114,17 @@ public class PresensiDAO implements ImplementPresensi{
         double confidence = p[0];
         
         String res = "";
-        if(confidence < 6000){
+        if(confidence < 6000 && predictedLabel != 1){
             res = "valid|"+predictedLabel+"|"+confidence;
-            //System.out.println("Predicted label: " + predictedLabel+" | conf: "+ confidence);
+//            System.out.println("Predicted label: " + predictedLabel+" | conf: "+ confidence);
         }
-        else if (confidence >= 7000 && confidence <= 9000){
+        else if (confidence >= 7000 && confidence <= 9000 && predictedLabel != 1){
             res = "possible|"+predictedLabel+"|"+confidence;
-            //System.out.println("perlu cek manual: " + predictedLabel+" | conf: "+ confidence);
+//            System.out.println("perlu cek manual: " + predictedLabel+" | conf: "+ confidence);
         }
         else{
             res = "invalid|"+predictedLabel+"|"+confidence;
-            //System.out.println("wajah sama sekali tidak dikenal"+" | conf: "+ confidence);
+//            System.out.println("wajah sama sekali tidak dikenal"+" | conf: "+ confidence);
         }
         
         return res;

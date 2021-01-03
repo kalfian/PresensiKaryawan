@@ -379,7 +379,8 @@ public class Presence extends javax.swing.JPanel {
         int prefUserId = pref.getInt(Constant.PREF_USER_ID, 0);
         int recogPerson = parseInt(recog[1]);
         list = implementKaryawan.getKaryawanById(recogPerson);
-        if(prefUserId != recogPerson) {
+       
+        if(prefUserId != recogPerson && !recog[0].equalsIgnoreCase("invalid")) {
             JOptionPane.showMessageDialog(null, "Presensi gagal ,wajah dikenali sebagai " + list.get(0).getNama() +", namun tidak sesuai dengan akun saat ini !");
             return;
         }
